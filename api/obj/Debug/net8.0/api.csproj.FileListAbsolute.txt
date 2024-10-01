@@ -290,3 +290,4 @@ C:\Users\SMabaso\Desktop\HR-System-main\api\obj\Debug\net8.0\api.genruntimeconfi
 C:\Users\SMabaso\Desktop\HR-System-main\api\obj\Debug\net8.0\ref\api.dll
 C:\Users\SMabaso\Desktop\HR-System-main\api\bin\Debug\net8.0\DotNetEnv.dll
 C:\Users\SMabaso\Desktop\HR-System-main\api\bin\Debug\net8.0\Sprache.dll
+C:\Users\SMabaso\Desktop\HR-System-main\api\obj\Debug\net8.0\api.sourcelink.json

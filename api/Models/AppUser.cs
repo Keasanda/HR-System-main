@@ -8,7 +8,6 @@ namespace api.Models
 {
    public class AppUser : IdentityUser
     {
-       public List<Employee> Employees { get; set; } = new List<Employee>();
-       
+        // Additional properties (if needed)
     }
 }

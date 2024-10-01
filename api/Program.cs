@@ -1,35 +1,39 @@
 using api.Data;
 using api.Interfaces;
 using api.Models;
+using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Net.Mail;
 using System.Net;
-using DotNetEnv; // Import this namespace
-
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Load environment variables from .env file
 Env.Load();
 
-
-
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ISenderEmail, EmailSender>();
 builder.Services.AddAuthorization();
 
+// Register IProductService and its implementation ProductService
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
+
+
+
+
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Logging.AddEventSourceLogger();
 
-builder.Services.AddDbContext<ApplicationDBContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -47,7 +51,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
     options.User.RequireUniqueEmail = true;
 })
-.AddEntityFrameworkStores<ApplicationDBContext>()   // Use ApplicationDBContext for Identity
+.AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
 builder.Services.AddCors(options =>
@@ -61,9 +65,6 @@ builder.Services.AddCors(options =>
                    .AllowCredentials();
         });
 });
-
-
-
 
 var app = builder.Build();
 
