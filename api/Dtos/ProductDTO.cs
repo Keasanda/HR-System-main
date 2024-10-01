@@ -12,5 +12,7 @@ namespace api.Dtos
         public decimal SalePrice { get; set; }
         public string Category { get; set; }
         public string Image { get; set; }
+
+        public int Qty { get; set; } // Include quantity here
     }
 }

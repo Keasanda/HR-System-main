@@ -25,6 +25,8 @@ namespace api.Models
         public string Category { get; set; }
 
         public string Image { get; set; } // Image saved as a string (URL or path)
+        
+         public int Qty { get; set; } // New property for quantity
 
         public ICollection<ProductSale> Sales { get; set; } // Relationship with sales
 

@@ -30,11 +30,33 @@ public class ProductSaleService : IProductSaleService
                 .ToListAsync();
         }
 
-        public async Task CreateSaleAsync(ProductSaleDTO sale)
-        {
-            var entity = sale.ToEntity();
-            _context.ProductSales.Add(entity);
-            await _context.SaveChangesAsync();
-        }
+public async Task CreateSaleAsync(ProductSaleDTO sale)
+{
+    // Find the product being sold
+    var product = await _context.Products.FindAsync(sale.ProductId);
+
+    if (product == null)
+    {
+        throw new Exception("Product not found");
+    }
+
+    // Check if there's enough quantity for the sale
+    if (product.Qty < sale.Qty)
+    {
+        throw new Exception("Not enough quantity in stock");
+    }
+
+    // Decrease the product quantity
+    product.Qty -= sale.Qty;
+
+    // Save the sale
+    var entity = sale.ToEntity();
+    _context.ProductSales.Add(entity);
+
+    // Save the updated product with reduced quantity
+    _context.Products.Update(product);
+    await _context.SaveChangesAsync();
+}
+
     }
 }

@@ -21,11 +21,12 @@ namespace api.Services
         }
 
         public async Task<IEnumerable<ProductDTO>> GetProductsAsync()
-        {
-            return await _context.Products
-                .Select(p => p.ToDTO())
-                .ToListAsync();
-        }
+{
+    return await _context.Products
+        .Select(p => p.ToDTO()) // Ensure DTO includes the updated quantity
+        .ToListAsync();
+}
+
 
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
