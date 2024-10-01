@@ -1,43 +1,22 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import Home from './Home';
-import Navbar from './Navbar'; // Import your Navbar
-import AddEmployee from "./AddEmployee";
-import ViewProfile from "./ViewProfile";
-import Login from './Login';
-import Password from './Password';
-import Email from './Email';
-import EmployeeDetails from './EmployeeDetails'; // Import the new EmployeeDetails component
-import BankingDetail from './BankingDetail';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-
-
-// Wrapper component to conditionally render the Navbar
-const ConditionalNavbar = () => {
-  const location = useLocation();
-
-  return (
-    <>
-      {/* Render Navbar only on the home page */}
-      {location.pathname === '/view-profile' && <Navbar />}
-    </>
-  );
-};
+// Import the new components for the sale tracking system
+import ProductsList from './ProductsList';   // New Products List component
+import ProductDetail from './ProductDetail'; // New Product Detail component
+import CreateSale from './CreateSale';       // New Create Sale component
 
 function App() {
   return (
     <Router>
-      <ConditionalNavbar /> {/* Navbar will only show on the home page */}
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/password" element={<Password />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/view-profile" element={<ViewProfile />} />
-        <Route path="/add-employee" element={<AddEmployee />} />
-        <Route path="/email" element={<Email/>} />
-        <Route path="/employee/:id" element={<EmployeeDetails />} />  {/* Dynamic route for employee details */}
-        <Route path="/banking-detail" element={<BankingDetail />} />
-        
+        {/* Your existing routes */}
+        <Route path="/" element={<ProductsList />} />
+  
+        {/* New routes for the sale tracking system */}
+        <Route path="/products" element={<ProductsList />} />   {/* Product list page */}
+        <Route path="/products/:id" element={<ProductDetail />} /> {/* Product details page */}
+        <Route path="/products/:id/sale" element={<CreateSale />} /> {/* Create sale page */}
       </Routes>
     </Router>
   );

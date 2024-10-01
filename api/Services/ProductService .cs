@@ -50,6 +50,7 @@ namespace api.Services
                 entity.SalePrice = product.SalePrice;
                 entity.Category = product.Category;
                 entity.Image = product.Image;
+                entity.Qty = product.Qty;
                 await _context.SaveChangesAsync();
             }
         }

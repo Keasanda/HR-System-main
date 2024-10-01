@@ -17,7 +17,8 @@ namespace api.Mappers
             Description = product.Description,
             SalePrice = product.SalePrice,
             Category = product.Category,
-            Image = product.Image
+            Image = product.Image,
+            Qty  = product.Qty
         };
 
         public static Product ToEntity(this ProductDTO dto) => new Product
@@ -26,7 +27,8 @@ namespace api.Mappers
             Description = dto.Description,
             SalePrice = dto.SalePrice,
             Category = dto.Category,
-            Image = dto.Image
+            Image = dto.Image,
+            Qty = dto.Qty
         };
 
 
