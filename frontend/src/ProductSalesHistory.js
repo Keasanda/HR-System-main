@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';  // Import useNavigate
 import api from './api';
 import './ProductSalesHistory.css';  // Import the CSS file for styling
 
@@ -8,6 +8,7 @@ const ProductSalesHistory = () => {
   const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
   const [product, setProduct] = useState(null);
+  const navigate = useNavigate();  // Initialize useNavigate
 
   useEffect(() => {
     const fetchSalesHistory = async () => {
@@ -76,6 +77,11 @@ const ProductSalesHistory = () => {
           </table>
         </div>
       )}
+
+      {/* Back to TrackingRecording button */}
+      <button className="back-button" onClick={() => navigate('/track-recording')}>
+        Back to TrackingRecording
+      </button>
     </div>
   );
 };

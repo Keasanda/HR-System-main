@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import api from './api';
 import './ProductsList.css'; // Reuse the CSS from ProductsList
 import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { FaHome } from 'react-icons/fa';
+import { GiBookshelf } from "react-icons/gi";
+import { FcManager } from "react-icons/fc";
 
 const TrackRecording = () => {
   const [products, setProducts] = useState([]);
@@ -52,9 +55,10 @@ const TrackRecording = () => {
       <aside className="sidebar">
         <nav>
           <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/image-upload">Image Upload</Link></li>
-            <li><Link to="/my-library">My Library</Link></li>
+       <li className="navlinks">   <FaHome /> <Link to="/"> Home</Link> </li>
+            <li className="navlinks"> <GiBookshelf />      <Link to="/track-recording">TrackRecording</Link></li>
+            <li className="navlinks" >   <FcManager />         <Link to="/manage-products">Manager Products</Link></li>
+            
           </ul>
         </nav>
       </aside>

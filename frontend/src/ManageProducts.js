@@ -147,7 +147,7 @@ const ManageProducts = () => {
           {products.map((product) => (
             <tr key={product.id}>
               <td>
-                <img src={product.image} alt={product.description} className="product-image" />
+                <img src={product.image} alt={product.description} className="Manage-product-image" />
               </td>
               <td>
                 <input

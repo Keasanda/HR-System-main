@@ -10,10 +10,10 @@
   }
   
   .product-image {
-    width: 150px;
-    height: 150px;
+    width: 40%;
+    height: 100%;
     object-fit: cover;
-    margin-bottom: 10px;
+   
   }
   
   .sales-table {
@@ -38,5 +38,19 @@
     font-size: 18px;
     color: #999;
     margin-top: 20px;
+  }
+  
+  .back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #45a049;
   }
   

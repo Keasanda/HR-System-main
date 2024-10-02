@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 .checkout-container {
     display: flex;
     flex-direction: row;
@@ -6,7 +8,7 @@
   }
   
   .sidebar {
-    width: 300px; /* Increased sidebar size */
+    width: 350px; /* Increased sidebar size */
     background-color: #333;
     color: #fff;
     padding: 20px; /* Increased padding */
@@ -21,12 +23,34 @@
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
     padding: 30px; /* Increased padding for more space */
-    margin-left: 15%; /* Increased margin */
+    margin-left: 25%; /* Increased margin */
     font-size: 18px; /* Increased font size */
   }
   
+  .font{
+
+    font-family: "PT Serif", serif;
+ 
+  font-style: normal;
+
+  }
+  .productMrg{
+
+    padding-right: 84%;
+  }
+.productMrgDescrip{
+
+  padding-right: 96%;
+}
+  .productMrgprice{
+
+    padding-right: 93%;
+  }
   
-  
+  .productMrgCategory{
+
+    padding-right: 88%;
+  }
   .product-image {
     width: 100%;
     height: 100%;
@@ -35,7 +59,11 @@
     object-fit:cover;
     padding-bottom: 20;
   }
-  
+  .product-image-container{
+
+    width: 100%;
+    height: 40%;
+  }
   .product-info {
     margin-bottom: 30px; /* Increased bottom margin */
     font-size: 20px; /* Increased font size for product info */
