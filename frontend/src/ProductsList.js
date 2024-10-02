@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import api from './api';
 import './ProductsList.css';  
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1); // Track the current page
   const [hasMore, setHasMore] = useState(true); // Check if there are more products to load
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const fetchProducts = async (page) => {
     try {
@@ -41,6 +42,11 @@ const ProductsList = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasMore]);
 
+  // Function to handle clicking a product card and navigate to the CreateSale page
+  const handleCardClick = (productId) => {
+    navigate(`/products/${productId}/sale`); // Updated path
+  };
+
   return (
     <div className="container">
       <aside className="sidebar">
@@ -56,7 +62,12 @@ const ProductsList = () => {
         <h1>Products List</h1>
         <div className="product-grid">
           {products.map((product) => (
-            <div key={product.id} className="product-card">
+            <div 
+              key={product.id} 
+              className="product-card" 
+              onClick={() => handleCardClick(product.id)} // Add onClick to navigate
+              style={{ cursor: 'pointer' }} // Add cursor pointer to show it's clickable
+            >
               <img src={product.image} alt={product.description} className="product-image" />
               <div className="product-info">
                 <h2>{product.description}</h2>

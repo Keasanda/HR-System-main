@@ -1,66 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from './api';  // Correct import for API, assuming it is now inside the src directory
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import api from './api';
+import './CreateSale.css'; // Import the CSS file for styling
 
-function CreateSale() {
-  // Define state variables for salePrice and qty
-  const [productId, setProductId] = useState('');  // Assuming productId is passed or selected
-  const [salePrice, setSalePrice] = useState('');
-  const [qty, setQty] = useState('');
+const CreateSale = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [qty, setQty] = useState(1);
+  const [loading, setLoading] = useState(true);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await api.get(`http://localhost:5239/api/Products/${id}`);
+        console.log('Product data:', response.data);
+        setProduct(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        setLoading(false);
+      }
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    fetchProduct();
+  }, [id]);
+
+  const handlePurchase = async () => {
     try {
       const saleData = {
-        productId,
-        salePrice,
-        qty
+        productId: product.id,
+        salePrice: product.salePrice,
+        qty: qty,
+        saleDate: new Date(),
       };
-      
-      await api.post('/sales', saleData);
-      navigate('/products');  // Redirect to product list after successful sale creation
+      await api.post('http://localhost:5239/api/ProductSales', saleData);
+      alert('Purchase completed successfully!');
     } catch (error) {
-      console.error('Error creating sale', error);
+      console.error('Error making sale:', error);
     }
   };
 
+  if (loading) return <div className="loading">Loading...</div>;
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Product ID:</label>
-        <input 
-          type="text"
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          required
-        />
+    <div className="checkout-container">
+      <div className="sidebar"> {/* Sidebar component here */} </div>
+      <div className="checkout-content">
+        <div className="product-image-container">
+          {product.image && <img src={product.image} alt={product.description} className="product-image" />}
+        </div>
+        <div className="product-info">
+          <h2>{product.description}</h2>
+          <p>Category: {product.category}</p>
+          <p>Price: ${product.salePrice}</p>
+          <p>Available Quantity: {product.qty}</p>
+        </div>
+        <div className="purchase-section">
+          <label htmlFor="quantity">Quantity: </label>
+          <input
+            type="number"
+            id="quantity"
+            min="1"
+            max={product.qty}
+            value={qty}
+            onChange={(e) => setQty(e.target.value)}
+          />
+          <button onClick={handlePurchase}>Confirm Purchase</button>
+        </div>
       </div>
-
-      <div>
-        <label>Sale Price:</label>
-        <input 
-          type="number"
-          value={salePrice}
-          onChange={(e) => setSalePrice(e.target.value)}
-          required
-        />
-      </div>
-
-      <div>
-        <label>Quantity:</label>
-        <input 
-          type="number"
-          value={qty}
-          onChange={(e) => setQty(e.target.value)}
-          required
-        />
-      </div>
-
-      <button type="submit">Create Sale</button>
-    </form>
+    </div>
   );
-}
+};
 
 export default CreateSale;

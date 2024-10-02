@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import api from './api';
 import './ManageProducts.css'; // Import a CSS file for styling
-import { Link } from 'react-router-dom';
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
-  const [editingProduct, setEditingProduct] = useState(null); // Track which product is being edited
+  const [newProduct, setNewProduct] = useState({
+    description: '',
+    salePrice: 0,
+    category: '',
+    image: '',
+    qty: 0,
+  });
 
   // Fetch products on component load
   useEffect(() => {
@@ -51,6 +56,31 @@ const ManageProducts = () => {
     setProducts(updatedProducts);
   };
 
+  // Handle new product field change
+  const handleNewProductFieldChange = (field, value) => {
+    setNewProduct({ ...newProduct, [field]: value });
+  };
+
+  // Handle adding a new product
+  const handleAddProduct = async () => {
+    try {
+      const response = await api.post('http://localhost:5239/api/Products', newProduct);
+      setProducts([...products, response.data]); // Add the new product to the product list
+      alert('New product added successfully!');
+
+      // Clear the form after adding
+      setNewProduct({
+        description: '',
+        salePrice: 0,
+        category: '',
+        image: '',
+        qty: 0,
+      });
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  };
+
   // Handle Save button click (saves all changes)
   const handleSaveAllChanges = async () => {
     for (const product of products) {
@@ -62,9 +92,8 @@ const ManageProducts = () => {
   return (
     <div className="manage-products-container">
       <h1>Manage Products</h1>
-      <button className="save-changes-btn" onClick={handleSaveAllChanges}>
-        Save All Changes
-      </button>
+
+      {/* Product Table */}
       <table className="product-table">
         <thead>
           <tr>
@@ -120,8 +149,61 @@ const ManageProducts = () => {
               </td>
             </tr>
           ))}
+          
+          {/* Row for adding a new product */}
+          <tr>
+            <td>
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={newProduct.image}
+                onChange={(e) => handleNewProductFieldChange('image', e.target.value)}
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Description"
+                value={newProduct.description}
+                onChange={(e) => handleNewProductFieldChange('description', e.target.value)}
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                placeholder="Sale Price"
+                value={newProduct.salePrice}
+                onChange={(e) => handleNewProductFieldChange('salePrice', e.target.value)}
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Category"
+                value={newProduct.category}
+                onChange={(e) => handleNewProductFieldChange('category', e.target.value)}
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                placeholder="Quantity"
+                value={newProduct.qty}
+                onChange={(e) => handleNewProductFieldChange('qty', e.target.value)}
+              />
+            </td>
+            <td>
+              <button className="save-btn" onClick={handleAddProduct}>
+                Save
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
+
+      <button className="save-changes-btn" onClick={handleSaveAllChanges}>
+        Save All Changes
+      </button>
     </div>
   );
 };

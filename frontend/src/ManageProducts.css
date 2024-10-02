@@ -11,6 +11,7 @@
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
+    margin-top: 20px;
   }
   
   .product-table {
@@ -38,7 +39,8 @@
   }
   
   .update-btn,
-  .delete-btn {
+  .delete-btn,
+  .save-btn {
     margin-right: 5px;
     padding: 5px 10px;
     border: none;
@@ -53,6 +55,11 @@
   
   .delete-btn {
     background-color: #e74c3c;
+    color: white;
+  }
+  
+  .save-btn {
+    background-color: #2ecc71;
     color: white;
   }
   
