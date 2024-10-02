@@ -53,13 +53,58 @@
     color: white;
   }
   
-  .delete-btn {
+  button.delete-btn {
     background-color: #e74c3c;
     color: white;
   }
   
-  .save-btn {
-    background-color: #2ecc71;
+  button.save-btn {
+    background-color: navy;
     color: white;
+  }
+  
+  .validation-messages {
+    color: red;
+    margin-bottom: 20px;
+  }
+  
+  .top-buttons {
+    margin-bottom: 20px;
+  }
+  
+  button.home-btn{
+    margin-right: 10px;
+    padding: 8px 12px;
+    background-color: skyblue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+  }
+  .save-changes-btn{
+    margin-right: 10px;
+    padding: 8px 12px;
+    background-color: #0e0f0e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+
+
+
+  .save-changes-btn:hover,
+  .home-btn:hover,
+  .save-btn:hover,
+  .update-btn:hover,
+  .delete-btn:hover {
+    background-color: burlywood;
+  }
+  
+  .product-image {
+    width: 50px;
+    height: auto;
   }
   

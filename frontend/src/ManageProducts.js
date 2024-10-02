@@ -11,6 +11,10 @@ const ManageProducts = () => {
     image: '',
     qty: 0,
   });
+  const [validationMessages, setValidationMessages] = useState([]);
+
+  // Sample categories, replace with your actual categories if needed
+  const categories = ['Fruits', 'Vagitable', 'Drinks'];
 
   // Fetch products on component load
   useEffect(() => {
@@ -63,6 +67,21 @@ const ManageProducts = () => {
 
   // Handle adding a new product
   const handleAddProduct = async () => {
+    const messages = [];
+    
+    if (!newProduct.description) messages.push("Description is required.");
+    if (newProduct.salePrice <= 0) messages.push("Sale Price must be greater than zero.");
+    if (!newProduct.category) messages.push("Category is required.");
+    if (!newProduct.image) messages.push("Image URL is required.");
+    if (newProduct.qty < 0) messages.push("Quantity cannot be negative.");
+
+    if (messages.length > 0) {
+      setValidationMessages(messages);
+      return;
+    }
+
+    setValidationMessages([]); // Clear validation messages
+
     try {
       const response = await api.post('http://localhost:5239/api/Products', newProduct);
       setProducts([...products, response.data]); // Add the new product to the product list
@@ -92,6 +111,25 @@ const ManageProducts = () => {
   return (
     <div className="manage-products-container">
       <h1>Manage Products</h1>
+
+      {/* Validation Messages */}
+      {validationMessages.length > 0 && (
+        <div className="validation-messages">
+          {validationMessages.map((msg, index) => (
+            <p key={index} className="validation-error">{msg}</p>
+          ))}
+        </div>
+      )}
+
+      {/* Buttons for Save and Home */}
+      <div className="top-buttons">
+        <button className="save-changes-btn" onClick={handleSaveAllChanges}>
+          Save All Changes
+        </button>
+        <button className="home-btn" onClick={() => window.location.href = '/'}>
+          Home
+        </button>
+      </div>
 
       {/* Product Table */}
       <table className="product-table">
@@ -126,11 +164,15 @@ const ManageProducts = () => {
                 />
               </td>
               <td>
-                <input
-                  type="text"
+                <select
                   value={product.category}
                   onChange={(e) => handleFieldChange(product.id, 'category', e.target.value)}
-                />
+                >
+                  <option value="">Select a category</option>
+                  {categories.map((category, index) => (
+                    <option key={index} value={category}>{category}</option>
+                  ))}
+                </select>
               </td>
               <td>
                 <input
@@ -177,12 +219,15 @@ const ManageProducts = () => {
               />
             </td>
             <td>
-              <input
-                type="text"
-                placeholder="Category"
+              <select
                 value={newProduct.category}
                 onChange={(e) => handleNewProductFieldChange('category', e.target.value)}
-              />
+              >
+                <option value="">Select a category</option>
+                {categories.map((category, index) => (
+                  <option key={index} value={category}>{category}</option>
+                ))}
+              </select>
             </td>
             <td>
               <input
@@ -200,10 +245,6 @@ const ManageProducts = () => {
           </tr>
         </tbody>
       </table>
-
-      <button className="save-changes-btn" onClick={handleSaveAllChanges}>
-        Save All Changes
-      </button>
     </div>
   );
 };

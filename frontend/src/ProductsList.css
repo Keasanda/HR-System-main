@@ -1,3 +1,10 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 /* Overall container for sidebar and main content */
 .container {
   display: flex;
@@ -30,6 +37,26 @@
     text-decoration: none;
     font-size: 18px;
   }
+  
+  .product-list-heading{
+
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight:bold;
+  
+color: #2c3e50;
+  }
+
+
+
+
+.navlinks{
+
+  font-size:xx-large;
+  font-family: "PT Serif", serif;
+  font-weight: 800;
+  font-style: normal;
+}
   
  /* Main content area */
 .main-content {
@@ -83,5 +110,41 @@
   
   .product-info p {
     margin: 5px 0;
+  }
+
+  .productfont{
+
+    font-family: "PT Serif", serif;
+  font-weight: 700;
+  font-style: normal;
+  }
+  
+  .search-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .search-input {
+    padding: 10px;
+    width: 70%;
+    max-width: 400px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
   }
   
