@@ -36,5 +36,8 @@ namespace api.Controllers
             await _saleService.CreateSaleAsync(sale);
             return CreatedAtAction(nameof(GetSalesByProductId), new { productId = sale.ProductId }, sale);
         }
+
+
+        
     }
 }

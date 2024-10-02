@@ -1,5 +1,19 @@
-
+.checkout-container {
+    display: flex;
+    flex-direction: row;
+    padding: 30px; /* Increased padding for more space */
+    background-color: #f9f9f9;
+  }
   
+  .sidebar {
+    width: 300px; /* Increased sidebar size */
+    background-color: #333;
+    color: #fff;
+    padding: 20px; /* Increased padding */
+    margin-right: 30px; /* Increased margin */
+    border-radius: 5px;
+    font-size: 18px; /* Increased font size */
+  }
   
   .checkout-content {
     flex: 1; /* Takes remaining space */
@@ -19,7 +33,7 @@
     border-radius: 5px;
 
     object-fit:cover;
-    padding-bottom: 20px;
+    padding-bottom: 20;
   }
   
   .product-info {

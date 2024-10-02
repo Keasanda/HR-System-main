@@ -1,0 +1,42 @@
+.sales-history-container {
+    width: 80%;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  }
+  
+  .product-info {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .product-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .sales-table th, .sales-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .sales-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .no-sales {
+    text-align: center;
+    font-size: 18px;
+    color: #999;
+    margin-top: 20px;
+  }
+  
