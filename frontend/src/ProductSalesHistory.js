@@ -14,9 +14,8 @@ const ProductSalesHistory = () => {
       try {
         // Fetch product details (including image) along with the sales history
         const productResponse = await api.get(`/products/${id}`);
-
         setProduct(productResponse.data);
-        
+
         const salesResponse = await api.get(`/ProductSales/product/${id}`);
         setSales(salesResponse.data);
         setLoading(false);
@@ -36,7 +35,11 @@ const ProductSalesHistory = () => {
       {/* Product image and details */}
       {product && (
         <div className="product-info">
-          <img src="/mnt/data/original-dcd8cfa11c69dbaa9695793ed8cc7fd8.jpg" alt={product.name} className="product-image" />
+          <img 
+            src={product.image} 
+            alt={product.name} 
+            className="product-image" 
+          />
           <h1>{product.name}</h1>
         </div>
       )}
@@ -51,20 +54,22 @@ const ProductSalesHistory = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Product Name</th>
+                <th>Product Description</th> {/* Changed from Product Name */}
                 <th>Qty</th>
                 <th>Price</th>
                 <th>Total</th>
+                <th>Sale Date</th>
               </tr>
             </thead>
             <tbody>
               {sales.map((sale) => (
                 <tr key={sale.saleID}>
                   <td>#{sale.saleID}</td>
-                  <td>{product.name}</td>
+                  <td>{product.description}</td> {/* Displaying product description */}
                   <td>x{sale.qty}</td>
                   <td>${sale.salePrice}</td>
                   <td>${(sale.salePrice * sale.qty).toFixed(2)}</td>
+                  <td>{new Date(sale.saleDate).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
