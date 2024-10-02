@@ -14,5 +14,6 @@ namespace api.Dtos
         public string Image { get; set; }
 
         public int Qty { get; set; } // Include quantity here
+        
     }
 }

@@ -13,6 +13,7 @@ namespace api.Interfaces
     {
         Task SendEmailAsync(string toEmail, string subject, string body, bool isBodyHtml = false);
     }
+    
     public class EmailSender : ISenderEmail
     {
         private readonly SmtpClient _smtpClient;

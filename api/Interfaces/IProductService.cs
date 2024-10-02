@@ -10,7 +10,8 @@ namespace api.Interfaces
 {
     public interface IProductService
     {
-          Task<IEnumerable<ProductDTO>> GetProductsAsync();
+         
+        Task<IEnumerable<ProductDTO>> GetProductsAsync();
         Task<ProductDTO> GetProductByIdAsync(int id);
         Task CreateProductAsync(ProductDTO product);
         Task UpdateProductAsync(ProductDTO product);

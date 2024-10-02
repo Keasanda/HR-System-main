@@ -12,5 +12,6 @@ namespace api.Dtos
         public decimal SalePrice { get; set; }
         public int Qty { get; set; }
         public DateTime SaleDate { get; set; }
+        
     }
 }
