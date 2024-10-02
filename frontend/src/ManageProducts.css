@@ -1,0 +1,58 @@
+.manage-products-container {
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
+  .save-changes-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .product-table th,
+  .product-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .product-table th {
+    background-color: #2c3e50;
+    color: white;
+    text-align: left;
+  }
+  
+  .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  }
+  
+  .update-btn,
+  .delete-btn {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .update-btn {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .delete-btn {
+    background-color: #e74c3c;
+    color: white;
+  }
+  

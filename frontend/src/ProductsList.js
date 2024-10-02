@@ -1,26 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import api from './api';
-import './ProductsList.css';  // Add a separate CSS file for styling
+import './ProductsList.css';  
 import { Link } from 'react-router-dom';
-
-
 
 const ProductsList = () => {
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1); // Track the current page
+  const [hasMore, setHasMore] = useState(true); // Check if there are more products to load
+
+  const fetchProducts = async (page) => {
+    try {
+      const response = await api.get(`/Products?page=${page}`);
+      const newProducts = response.data;
+
+      // If no new products are returned, stop fetching more
+      if (newProducts.length === 0) {
+        setHasMore(false);
+      } else {
+        setProducts((prevProducts) => [...prevProducts, ...newProducts]);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await api.get('http://localhost:5239/api/Products');
+    // Fetch initial products
+    fetchProducts(page);
+  }, [page]);
 
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
+  // Infinite scroll - detect when the user reaches the bottom of the page
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight - 200 && hasMore) {
+        setPage((prevPage) => prevPage + 1);
       }
     };
 
-    fetchProducts();
-  }, []);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasMore]);
 
   return (
     <div className="container">
@@ -48,6 +67,7 @@ const ProductsList = () => {
             </div>
           ))}
         </div>
+        {hasMore && <p>Loading more products...</p>}
       </main>
     </div>
   );

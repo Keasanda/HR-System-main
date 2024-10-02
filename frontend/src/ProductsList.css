@@ -1,17 +1,20 @@
 /* Overall container for sidebar and main content */
 .container {
     display: flex;
-    height: 100vh;
   }
   
   /* Sidebar */
   .sidebar {
-    width: 200px;
+    position: fixed;  /* Fix the sidebar position */
+    top: 0;
+    left: 0;
+    width: 300px;
+    height: 100vh;  /* Make it take up the full viewport height */
     background-color: #2c3e50;
     padding: 20px;
     color: white;
+    overflow-y: auto; /* Allow vertical scrolling in case content exceeds the screen height */
   }
-  
   .sidebar ul {
     list-style-type: none;
     padding: 0;
@@ -27,17 +30,17 @@
     font-size: 18px;
   }
   
-  /* Main content area */
-  .main-content {
-    flex: 1;
+ /* Main content area */
+.main-content {
+    margin-left: 370px;  /* Add space to the left for the fixed sidebar */
     padding: 20px;
     background-color: #f4f4f4;
   }
   
-  /* Product grid */
+  /* Product grid with 4 columns */
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr); /* Display 4 products per row */
     grid-gap: 20px;
   }
   
@@ -48,12 +51,23 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     text-align: center;
+    transition: transform 0.3s ease; /* Add a transition effect */
+    cursor: pointer;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05); /* Scale up on hover */
   }
   
   .product-card img {
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
+    width: 100%;
+    height: 200px; /* Set uniform height for all images */
+    object-fit: cover; /* Ensure the images maintain aspect ratio and fit within the box */
+  }
+  
+  /* Image hover effect */
+  .product-card img:hover {
+    opacity: 0.8; /* Slightly dim the image on hover */
   }
   
   .product-info {
@@ -61,7 +75,7 @@
   }
   
   .product-info h2 {
-    font-size: 18px;
+    font-size: 20px; /* Increase font size */
     margin: 10px 0;
   }
   
