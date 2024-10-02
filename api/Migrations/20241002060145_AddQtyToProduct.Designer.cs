@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241001153833_AddQtyToProduct")]
+    [Migration("20241002060145_AddQtyToProduct")]
     partial class AddQtyToProduct
     {
         /// <inheritdoc />
