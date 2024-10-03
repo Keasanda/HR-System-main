@@ -12,6 +12,10 @@ const ManageProducts = () => {
     qty: 0,
   });
   const [validationMessages, setValidationMessages] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(''); // State for success messages
+  
+
+
 
   // Sample categories, replace with your actual categories if needed
   const categories = ['Fruits', 'Vagitable', 'Drinks'];
@@ -35,7 +39,7 @@ const ManageProducts = () => {
     try {
       const updatedProduct = products.find((product) => product.id === id);
       await api.put(`http://localhost:5239/api/Products/${id}`, updatedProduct);
-      alert('Product updated successfully');
+      setSuccessMessage('Updated successfully!'); // Set success message
     } catch (error) {
       console.error('Error updating product:', error);
     }
@@ -46,7 +50,7 @@ const ManageProducts = () => {
     try {
       await api.delete(`http://localhost:5239/api/Products/${id}`);
       setProducts(products.filter((product) => product.id !== id)); // Update the UI
-      alert('Product deleted successfully');
+      setSuccessMessage('Product deleted successfully');
     } catch (error) {
       console.error('Error deleting product:', error);
     }
@@ -85,7 +89,7 @@ const ManageProducts = () => {
     try {
       const response = await api.post('http://localhost:5239/api/Products', newProduct);
       setProducts([...products, response.data]); // Add the new product to the product list
-      alert('New product added successfully!');
+      setSuccessMessage('New product added successfully!'); // Set success message
 
       // Clear the form after adding
       setNewProduct({
@@ -105,18 +109,29 @@ const ManageProducts = () => {
     for (const product of products) {
       await handleUpdate(product.id);
     }
-    alert('All changes saved!');
+    setSuccessMessage('All changes saved!');
   };
 
   return (
     <div className="manage-products-container">
       <h1>Manage Products</h1>
 
-      {/* Validation Messages */}
-      {validationMessages.length > 0 && (
+
+      
+      {/* Success message display at the top right */}
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+        </div>
+      )}
+
+ {/* Validation Messages */}
+ {validationMessages.length > 0 && (
         <div className="validation-messages">
           {validationMessages.map((msg, index) => (
-            <p key={index} className="validation-error">{msg}</p>
+            <p key={index} className={`validation-error ${msg.includes("successfully") ? 'success' : 'error'}`}>
+              {msg}
+            </p>
           ))}
         </div>
       )}

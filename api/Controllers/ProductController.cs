@@ -45,15 +45,15 @@ namespace api.Controllers
         }
 
         // PUT: api/products/{id}
-   [HttpPut("{id}")]
-public async Task<IActionResult> UpdateProduct(int id, ProductDTO product)
-{
-    // Ignore the incoming product.Id and use the id from the URL
-    product.Id = id;
-
-    await _productService.UpdateProductAsync(product);
-    return NoContent();
-}
+         [HttpPut("{id}")]
+            public async Task<IActionResult> UpdateProduct(int id, ProductDTO product)
+                {
+                    // Ignore the incoming product.Id and use the id from the URL
+                    product.Id = id;
+                    
+                    await _productService.UpdateProductAsync(product);
+                    return NoContent();
+                }
 
         // DELETE: api/products/{id}
         [HttpDelete("{id}")]

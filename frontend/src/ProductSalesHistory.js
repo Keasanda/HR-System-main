@@ -56,7 +56,7 @@ const ProductSalesHistory = () => {
               <tr>
                 <th>ID</th>
                 <th>Product Description</th> {/* Changed from Product Name */}
-                <th>Qty</th>
+                <th>SaleQty</th> {/* Changed from Qty */}
                 <th>Price</th>
                 <th>Total</th>
                 <th>Sale Date</th>
@@ -67,9 +67,9 @@ const ProductSalesHistory = () => {
                 <tr key={sale.saleID}>
                   <td>#{sale.saleID}</td>
                   <td>{product.description}</td> {/* Displaying product description */}
-                  <td>x{sale.qty}</td>
+                  <td>x{sale.saleQty}</td> {/* Changed from sale.qty to sale.saleQty */}
                   <td>${sale.salePrice}</td>
-                  <td>${(sale.salePrice * sale.qty).toFixed(2)}</td>
+                  <td>${(sale.salePrice * sale.saleQty).toFixed(2)}</td> {/* Changed from sale.qty to sale.saleQty */}
                   <td>{new Date(sale.saleDate).toLocaleDateString()}</td>
                 </tr>
               ))}

@@ -60,16 +60,23 @@ const ProductsList = () => {
 
   // Function to handle search when the button is clicked
   const handleSearch = () => {
-    setSearchPerformed(true); // Indicate that a search has been performed
+    setSearchPerformed(true);
+    console.log("Search Term:", searchTerm);
 
-    // Filter products based on search term in Description or Category
+    if (!searchTerm.trim()) {
+        setFilteredProducts(products); // Reset to all products if search term is empty
+        return;
+    }
+
     const filtered = products.filter(product => 
-      product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase())
+        product.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    setFilteredProducts(filtered); // Update filteredProducts to match the search
-  };
+    console.log("Filtered Products:", filtered);
+    setFilteredProducts(filtered);
+};
+
 
   return (
     <div className="container">
@@ -101,7 +108,7 @@ const ProductsList = () => {
         </div>
 
         {/* Product Grid or No Results */}
-        {searchPerformed && filteredProducts.length === 0 ? (
+        {filteredProducts.length === 0 ? (
           <p>No products or categories found matching "{searchTerm}".</p>
         ) : (
           <div className="product-grid">

@@ -41,13 +41,13 @@ public async Task CreateSaleAsync(ProductSaleDTO sale)
     }
 
     // Check if there's enough quantity for the sale
-    if (product.Qty < sale.Qty)
+    if (product.Qty < sale.SaleQty)
     {
         throw new Exception("Not enough quantity in stock");
     }
 
     // Decrease the product quantity
-    product.Qty -= sale.Qty;
+    product.Qty -= sale.SaleQty;
 
     // Save the sale
     var entity = sale.ToEntity();

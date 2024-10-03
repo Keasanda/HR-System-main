@@ -19,12 +19,12 @@ namespace api.Models
         public decimal SalePrice { get; set; }
 
         [Required]
-        public int Qty { get; set; }
+        public int SaleQty { get; set; }
 
         [Required]
         public DateTime SaleDate { get; set; }
 
-        public Product Product { get; set; } // Navigation property
+        public Product Product { get; set; } 
 
     }
 }

@@ -14,7 +14,7 @@ namespace api.Mappers
             SaleID = sale.SaleID,
             ProductId = sale.ProductId,
             SalePrice = sale.SalePrice,
-            Qty = sale.Qty,
+            SaleQty = sale.SaleQty,
             SaleDate = sale.SaleDate
         };
 
@@ -23,7 +23,7 @@ namespace api.Mappers
             SaleID = dto.SaleID,
             ProductId = dto.ProductId,
             SalePrice = dto.SalePrice,
-            Qty = dto.Qty,
+            SaleQty= dto.SaleQty,
             SaleDate = dto.SaleDate
         };
     }

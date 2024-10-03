@@ -108,3 +108,17 @@
     height: auto;
   }
   
+
+
+  .success-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4caf50; /* Green background for success */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+    font-size: 16px;
+  }
+  

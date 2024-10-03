@@ -10,7 +10,7 @@ namespace api.Dtos
         public int SaleID { get; set; }
         public int ProductId { get; set; }
         public decimal SalePrice { get; set; }
-        public int Qty { get; set; }
+        public int SaleQty { get; set; }
         public DateTime SaleDate { get; set; }
         
     }
