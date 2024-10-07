@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
+import { GiBookshelf } from 'react-icons/gi';
+import { FcManager } from 'react-icons/fc';
 import api from './api';
 import './ManageProducts.css'; // Import a CSS file for styling
 
@@ -103,54 +107,117 @@ const ManageProducts = () => {
 
   return (
     <div className="manage-products-container">
-      <h1>Manage Products</h1>
+   <aside className="sidebar manage">
+  <img src="https://i.pinimg.com/736x/59/98/56/599856512197aadb4dfe73bc97a7d95a.jpg" alt="Logo" className="logopic" />
+  <nav>
+    <ul>
+      <li className="navlinks">
+        <FaHome /> <Link to="/">Home</Link>
+      </li>
+      <li className="navlinks">
+        <GiBookshelf /> <Link to="/track-recording">Track Recording</Link>
+      </li>
+      <li className="navlinks">
+        <FcManager /> <Link to="/manage-products">Manage Products</Link>
+      </li>
+    </ul>
+  </nav>
+</aside>
 
-      {successMessage && (
-        <div className="success-message">
-          {successMessage}
+
+      <div className="content">
+        <h1>Manage Products</h1>
+
+        {successMessage && (
+          <div className="success-message">
+            {successMessage}
+          </div>
+        )}
+
+        {validationMessages.length > 0 && (
+          <div className="validation-messages">
+            {validationMessages.map((msg, index) => (
+              <p key={index} className={`validation-error ${msg.includes("successfully") ? 'success' : 'error'}`}>
+                {msg}
+              </p>
+            ))}
+          </div>
+        )}
+
+        <div className="top-buttons">
+          <button className="save-changes-btn" onClick={handleSaveAllChanges}>
+            Save All Changes
+          </button>
+      
         </div>
-      )}
 
-      {validationMessages.length > 0 && (
-        <div className="validation-messages">
-          {validationMessages.map((msg, index) => (
-            <p key={index} className={`validation-error ${msg.includes("successfully") ? 'success' : 'error'}`}>
-              {msg}
-            </p>
-          ))}
-        </div>
-      )}
+        <table className="product-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <td>
+                  <img src={product.image} alt={product.description} className="manage-product-image" />
+                </td>
+                <td>
+                  <select
+                    value={product.category}
+                    onChange={(e) => handleFieldChange(product.id, 'category', e.target.value)}
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map((category, index) => (
+                      <option key={index} value={category}>{category}</option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={product.description}
+                    onChange={(e) => handleFieldChange(product.id, 'description', e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    value={product.qty}
+                    onChange={(e) => handleFieldChange(product.id, 'qty', e.target.value)}
+                  />
+                </td>
+                <td>{Number(product.salePrice).toFixed(2)}</td>
+                <td>
+                  <button className="update-btn" onClick={() => handleUpdate(product.id)}>
+                    Update
+                  </button>
+                  <button className="delete-btn" onClick={() => handleDelete(product.id)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
 
-      <div className="top-buttons">
-        <button className="save-changes-btn" onClick={handleSaveAllChanges}>
-          Save All Changes
-        </button>
-        <button className="home-btn" onClick={() => window.location.href = '/'}>
-          Home
-        </button>
-      </div>
-
-      <table className="product-table">
-        <thead>
-          <tr>
-            <th>Image</th>
-            <th>Category</th>
-            <th>Description</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
+            <tr>
               <td>
-                <img src={product.image} alt={product.description} className="Manage-product-image" />
+                <input
+                  type="text"
+                  placeholder="Image URL"
+                  value={newProduct.image}
+                  onChange={(e) => handleNewProductFieldChange('image', e.target.value)}
+                />
               </td>
               <td>
                 <select
-                  value={product.category}
-                  onChange={(e) => handleFieldChange(product.id, 'category', e.target.value)}
+                  value={newProduct.category}
+                  onChange={(e) => handleNewProductFieldChange('category', e.target.value)}
                 >
                   <option value="">Select a category</option>
                   {categories.map((category, index) => (
@@ -161,82 +228,37 @@ const ManageProducts = () => {
               <td>
                 <input
                   type="text"
-                  value={product.description}
-                  onChange={(e) => handleFieldChange(product.id, 'description', e.target.value)}
+                  placeholder="Description"
+                  value={newProduct.description}
+                  onChange={(e) => handleNewProductFieldChange('description', e.target.value)}
                 />
               </td>
               <td>
                 <input
                   type="number"
-                  value={product.qty}
-                  onChange={(e) => handleFieldChange(product.id, 'qty', e.target.value)}
+                  placeholder="Quantity"
+                  value={newProduct.qty}
+                  onChange={(e) => handleNewProductFieldChange('qty', e.target.value)}
                 />
               </td>
-              <td>{Number(product.salePrice).toFixed(2)}</td>
               <td>
-                <button className="update-btn" onClick={() => handleUpdate(product.id)}>
-                  Update
-                </button>
-                <button className="delete-btn" onClick={() => handleDelete(product.id)}>
-                  Delete
+                <input
+                  type="number"
+                  placeholder="Sale Price"
+                  step="0.01"
+                  value={newProduct.salePrice}
+                  onChange={(e) => handleNewProductFieldChange('salePrice', e.target.value)}
+                />
+              </td>
+              <td>
+                <button className="save-btn" onClick={handleAddProduct}>
+                  Save
                 </button>
               </td>
             </tr>
-          ))}
-
-          <tr>
-            <td>
-              <input
-                type="text"
-                placeholder="Image URL"
-                value={newProduct.image}
-                onChange={(e) => handleNewProductFieldChange('image', e.target.value)}
-              />
-            </td>
-            <td>
-              <select
-                value={newProduct.category}
-                onChange={(e) => handleNewProductFieldChange('category', e.target.value)}
-              >
-                <option value="">Select a category</option>
-                {categories.map((category, index) => (
-                  <option key={index} value={category}>{category}</option>
-                ))}
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Description"
-                value={newProduct.description}
-                onChange={(e) => handleNewProductFieldChange('description', e.target.value)}
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                placeholder="Quantity"
-                value={newProduct.qty}
-                onChange={(e) => handleNewProductFieldChange('qty', e.target.value)}
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                placeholder="Sale Price"
-                step="0.01"
-                value={newProduct.salePrice}
-                onChange={(e) => handleNewProductFieldChange('salePrice', e.target.value)}
-              />
-            </td>
-            <td>
-              <button className="save-btn" onClick={handleAddProduct}>
-                Save
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

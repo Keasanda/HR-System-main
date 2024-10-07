@@ -18,6 +18,9 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+   
+
+
   }
   
   .product-table th,
@@ -27,9 +30,13 @@
   }
   
   .product-table th {
-    background-color: #2c3e50;
+    background-image: linear-gradient(to right, 	#228B22, #006400, #32CD32, green, #9ACD32, 	#008000, 	#3CB371);
     color: white;
     text-align: left;
+
+
+
+
   }
   
   .Manage-product-image {
@@ -103,9 +110,11 @@
     background-color: burlywood;
   }
   
-  .product-image {
-    width: 50px;
+  .manage-product-image {
+    width: auto;
     height: auto;
+max-width: 200px;
+ 
   }
   
 
@@ -120,5 +129,35 @@
     border-radius: 5px;
     z-index: 1000;
     font-size: 16px;
+  }
+  
+  .content{
+
+    margin-left: 18%;
+  }
+
+
+  .manage{
+    width: 290px; /* Increased sidebar size */
+    background-color: #41522E;
+    color: #fff;
+    padding: 20px; /* Increased padding */
+    margin-right: 30px; /* Increased margin */
+    border-radius: 5px;
+    font-size: 18px; /* Increased font size */
+  }
+
+  .validation-error{
+
+
+    margin-left: 83%;
+  }
+
+  .logopic {
+    width: 150px; /* Adjust the width as needed */
+    margin-right: 10px auto; /* Center the logo horizontally with some margin */
+    display: block; /* Ensures block display for centering */
+margin-bottom: 50px;
+
   }
   

@@ -58,7 +58,7 @@ const ProductSalesHistory = () => {
           <table className="sales-table">
             <thead>
               <tr>
-                <th>ID</th>
+                
                 <th>Product Description</th> {/* Changed from Product Name */}
                 <th>SaleQty</th> {/* Changed from Qty */}
                 <th>Price</th>
@@ -69,7 +69,7 @@ const ProductSalesHistory = () => {
             <tbody>
               {sales.map((sale) => (
                 <tr key={sale.saleID}>
-                  <td>#{sale.saleID}</td>
+                 
                   <td>{product.description}</td> {/* Displaying product description */}
                   <td>x{sale.saleQty}</td> {/* Changed from sale.qty to sale.saleQty */}
                   <td>${sale.salePrice}</td>

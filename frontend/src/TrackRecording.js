@@ -94,6 +94,8 @@ const TrackRecording = () => {
   return (
     <div className="container">
       <aside className="sidebar">
+
+      <img src="https://i.pinimg.com/736x/59/98/56/599856512197aadb4dfe73bc97a7d95a.jpg" alt="Logo" className="logopic" />
         <nav>
           <ul>
             <li className="navlinks"> <FaHome /> <Link to="/"> Home</Link> </li>

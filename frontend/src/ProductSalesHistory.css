@@ -29,8 +29,9 @@
   }
   
   .sales-table th {
-    background-color: #f4f4f4;
+    background-color: #41522E;
     font-weight: bold;
+    color: white;
   }
   
   .no-sales {
@@ -43,7 +44,7 @@
   .back-button {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #4CAF50; /* Green */
+    background-color: #41522E; /* Green */
     color: white;
     border: none;
     border-radius: 5px;

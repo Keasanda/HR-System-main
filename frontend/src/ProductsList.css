@@ -16,9 +16,9 @@
     position: fixed;  /* Fix the sidebar position */
     top: 0;
     left: 0;
-    width: 100px;
+    width: 200px;
     height: 100vh;  /* Make it take up the full viewport height */
-    background-color: #FD2A82;
+    background-color: #41522E;
     padding: 20px;
     color: white;
     overflow-y: auto; /* Allow vertical scrolling in case content exceeds the screen height */
@@ -45,7 +45,7 @@
     font-weight:bold;
     
     color: #f4f4f4;
-    background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-color: #41522E;
   }
 
 
@@ -74,7 +74,7 @@
     grid-gap: 20px;
 
     /* Rainbow-colored linear gradient */
-    background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    background-color: #41522E;
 }
 
 
