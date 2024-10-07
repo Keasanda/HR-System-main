@@ -9,7 +9,7 @@
   
   .sidebar {
     width: 350px; /* Increased sidebar size */
-    background-color: #333;
+    background-color: #41522E;
     color: #fff;
     padding: 20px; /* Increased padding */
     margin-right: 30px; /* Increased margin */
@@ -36,15 +36,15 @@
   }
   .productMrg{
 
-    padding-right: 84%;
+    padding-right: 81%;
   }
 .productMrgDescrip{
 
-  padding-right: 96%;
+  padding-right: 91%;
 }
   .productMrgprice{
 
-    padding-right: 91%;
+    padding-right: 89%;
   }
   
   .productMrgCategory{
@@ -67,6 +67,8 @@
   .product-info {
     margin-bottom: 30px; /* Increased bottom margin */
     font-size: 20px; /* Increased font size for product info */
+
+    
   }
   
   .purchase-section {

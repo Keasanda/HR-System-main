@@ -19,7 +19,6 @@ Env.Load();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<ISenderEmail, EmailSender>();
 builder.Services.AddAuthorization();
 
 // Register IProductService and its implementation ProductService

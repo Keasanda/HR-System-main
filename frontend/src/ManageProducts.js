@@ -13,14 +13,9 @@ const ManageProducts = () => {
   });
   const [validationMessages, setValidationMessages] = useState([]);
   const [successMessage, setSuccessMessage] = useState(''); // State for success messages
-  
 
+  const categories = ['Fruits', 'Vegetable'];
 
-
-  // Sample categories, replace with your actual categories if needed
-  const categories = ['Fruits', 'Vagitable', 'Drinks'];
-
-  // Fetch products on component load
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -34,7 +29,6 @@ const ManageProducts = () => {
     fetchProducts();
   }, []);
 
-  // Handle product update
   const handleUpdate = async (id) => {
     try {
       const updatedProduct = products.find((product) => product.id === id);
@@ -45,7 +39,6 @@ const ManageProducts = () => {
     }
   };
 
-  // Handle product deletion
   const handleDelete = async (id) => {
     try {
       await api.delete(`http://localhost:5239/api/Products/${id}`);
@@ -56,7 +49,6 @@ const ManageProducts = () => {
     }
   };
 
-  // Handle product field changes (for editing)
   const handleFieldChange = (id, field, value) => {
     const updatedProducts = products.map((product) =>
       product.id === id ? { ...product, [field]: value } : product
@@ -64,15 +56,13 @@ const ManageProducts = () => {
     setProducts(updatedProducts);
   };
 
-  // Handle new product field change
   const handleNewProductFieldChange = (field, value) => {
     setNewProduct({ ...newProduct, [field]: value });
   };
 
-  // Handle adding a new product
   const handleAddProduct = async () => {
     const messages = [];
-    
+
     if (!newProduct.description) messages.push("Description is required.");
     if (newProduct.salePrice <= 0) messages.push("Sale Price must be greater than zero.");
     if (!newProduct.category) messages.push("Category is required.");
@@ -104,7 +94,6 @@ const ManageProducts = () => {
     }
   };
 
-  // Handle Save button click (saves all changes)
   const handleSaveAllChanges = async () => {
     for (const product of products) {
       await handleUpdate(product.id);
@@ -116,17 +105,13 @@ const ManageProducts = () => {
     <div className="manage-products-container">
       <h1>Manage Products</h1>
 
-
-      
-      {/* Success message display at the top right */}
       {successMessage && (
         <div className="success-message">
           {successMessage}
         </div>
       )}
 
- {/* Validation Messages */}
- {validationMessages.length > 0 && (
+      {validationMessages.length > 0 && (
         <div className="validation-messages">
           {validationMessages.map((msg, index) => (
             <p key={index} className={`validation-error ${msg.includes("successfully") ? 'success' : 'error'}`}>
@@ -136,7 +121,6 @@ const ManageProducts = () => {
         </div>
       )}
 
-      {/* Buttons for Save and Home */}
       <div className="top-buttons">
         <button className="save-changes-btn" onClick={handleSaveAllChanges}>
           Save All Changes
@@ -146,15 +130,14 @@ const ManageProducts = () => {
         </button>
       </div>
 
-      {/* Product Table */}
       <table className="product-table">
         <thead>
           <tr>
             <th>Image</th>
-            <th>Description</th>
-            <th>Price</th>
             <th>Category</th>
+            <th>Description</th>
             <th>Qty</th>
+            <th>Price</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -163,20 +146,6 @@ const ManageProducts = () => {
             <tr key={product.id}>
               <td>
                 <img src={product.image} alt={product.description} className="Manage-product-image" />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={product.description}
-                  onChange={(e) => handleFieldChange(product.id, 'description', e.target.value)}
-                />
-              </td>
-              <td>
-                <input
-                  type="number"
-                  value={product.salePrice}
-                  onChange={(e) => handleFieldChange(product.id, 'salePrice', e.target.value)}
-                />
               </td>
               <td>
                 <select
@@ -191,11 +160,19 @@ const ManageProducts = () => {
               </td>
               <td>
                 <input
+                  type="text"
+                  value={product.description}
+                  onChange={(e) => handleFieldChange(product.id, 'description', e.target.value)}
+                />
+              </td>
+              <td>
+                <input
                   type="number"
                   value={product.qty}
                   onChange={(e) => handleFieldChange(product.id, 'qty', e.target.value)}
                 />
               </td>
+              <td>{Number(product.salePrice).toFixed(2)}</td>
               <td>
                 <button className="update-btn" onClick={() => handleUpdate(product.id)}>
                   Update
@@ -206,8 +183,7 @@ const ManageProducts = () => {
               </td>
             </tr>
           ))}
-          
-          {/* Row for adding a new product */}
+
           <tr>
             <td>
               <input
@@ -215,22 +191,6 @@ const ManageProducts = () => {
                 placeholder="Image URL"
                 value={newProduct.image}
                 onChange={(e) => handleNewProductFieldChange('image', e.target.value)}
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                placeholder="Description"
-                value={newProduct.description}
-                onChange={(e) => handleNewProductFieldChange('description', e.target.value)}
-              />
-            </td>
-            <td>
-              <input
-                type="number"
-                placeholder="Sale Price"
-                value={newProduct.salePrice}
-                onChange={(e) => handleNewProductFieldChange('salePrice', e.target.value)}
               />
             </td>
             <td>
@@ -246,10 +206,27 @@ const ManageProducts = () => {
             </td>
             <td>
               <input
+                type="text"
+                placeholder="Description"
+                value={newProduct.description}
+                onChange={(e) => handleNewProductFieldChange('description', e.target.value)}
+              />
+            </td>
+            <td>
+              <input
                 type="number"
                 placeholder="Quantity"
                 value={newProduct.qty}
                 onChange={(e) => handleNewProductFieldChange('qty', e.target.value)}
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                placeholder="Sale Price"
+                step="0.01"
+                value={newProduct.salePrice}
+                onChange={(e) => handleNewProductFieldChange('salePrice', e.target.value)}
               />
             </td>
             <td>

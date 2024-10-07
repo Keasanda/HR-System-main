@@ -32,6 +32,10 @@ const ProductSalesHistory = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
+
+
+
+    
     <div className="sales-history-container">
       {/* Product image and details */}
       {product && (

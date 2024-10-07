@@ -128,7 +128,7 @@ const ProductsList = () => {
                 <div className="product-info">
                   <h2>{product.description}</h2>
                   <p>Category: {product.category}</p>
-                  <p>Price: ${product.salePrice}</p>
+                  <p>Price: R{product.salePrice.toFixed(2)}</p>
                   <p>Qty: {product.qty}</p>
                 </div>
               </div>

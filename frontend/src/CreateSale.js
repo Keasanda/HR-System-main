@@ -36,7 +36,7 @@ const CreateSale = () => {
       setErrorMessage('Quantity must be greater than or equal to 1.');
       return;
     }
-    
+  
     try {
       const saleData = {
         productId: product.id,
@@ -45,13 +45,18 @@ const CreateSale = () => {
         saleDate: new Date(),
       };
       await api.post('http://localhost:5239/api/ProductSales', saleData);
-      setSuccessMessage('Purchase completed successfully!'); // Set success message
-      setErrorMessage(''); // Clear any error messages
+      setSuccessMessage('Purchase completed successfully');
+      setErrorMessage(''); // Clear any previous error message
     } catch (error) {
-      console.error('Error making sale:', error);
+      // Check if the error response contains a specific message from the backend
+      if (error.response && error.response.data) {
+        setErrorMessage('Not enough quantity in stock'); // Display the error message from backend
+      } else {
+        setErrorMessage('An error occurred while making the sale.');
+      }
     }
   };
-
+  
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value, 10);
     
@@ -95,7 +100,7 @@ const CreateSale = () => {
         <div className="product-info font">
           <h2 className="productMrgDescrip font">{product.description}</h2>
           <p className="productMrgCategory font">Category: {product.category}</p>
-          <p className="productMrgprice font">Price: ${product.salePrice}</p>
+          <p className="productMrgprice font">Price: R{product.salePrice}</p>
           <p className="productMrg font">Available Quantity: {product.qty}</p>
         </div>
 
@@ -109,9 +114,13 @@ const CreateSale = () => {
             value={qty}
             onChange={handleQuantityChange}
           />
-          {errorMessage && <div className="error-message">{errorMessage}</div>}
+         
           <button onClick={handlePurchase} disabled={qty < 1 || isNaN(qty)}>Confirm Purchase</button>
+
+         
+
         </div>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
       </div>
     </div>
   );
