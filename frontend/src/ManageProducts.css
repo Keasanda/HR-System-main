@@ -30,7 +30,7 @@
   }
   
   .product-table th {
-    background-image: linear-gradient(to right, 	#228B22, #006400, #32CD32, green, #9ACD32, 	#008000, 	#3CB371);
+    background-color: #41522E;
     color: white;
     text-align: left;
 
@@ -66,7 +66,7 @@
   }
   
   button.save-btn {
-    background-color: navy;
+    background-color: #28a745;
     color: white;
   }
   
@@ -92,7 +92,7 @@
   .save-changes-btn{
     margin-right: 10px;
     padding: 8px 12px;
-    background-color: #0e0f0e;
+    background-color: #41522E;
     color: white;
     border: none;
     border-radius: 4px;

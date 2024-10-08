@@ -85,10 +85,12 @@ const CreateSale = () => {
 
       <div className="sidebar"> 
         <nav>
+
+        <img src="https://i.pinimg.com/736x/59/98/56/599856512197aadb4dfe73bc97a7d95a.jpg" alt="Logo" className="logopic" />
           <ul>
             <li className="navlinks"><FaHome /> <Link to="/">Home</Link></li>
-            <li className="navlinks"><GiBookshelf /><Link to="/track-recording">TrackRecording</Link></li>
-            <li className="navlinks"><FcManager /><Link to="/manage-products">Manage Products</Link></li>
+            <li className="navlinks"> <GiBookshelf /> <Link to="/track-recording">Product Tracking</Link></li>
+            <li className="navlinks"> <FcManager /> <Link to="/manage-products">Product Management  </Link></li>
           </ul>
         </nav>
       </div>

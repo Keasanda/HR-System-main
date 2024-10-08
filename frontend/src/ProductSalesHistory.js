@@ -60,7 +60,7 @@ const ProductSalesHistory = () => {
               <tr>
                 
                 <th>Product Description</th> {/* Changed from Product Name */}
-                <th>SaleQty</th> {/* Changed from Qty */}
+                <th>Sold Qty</th> {/* Changed from Qty */}
                 <th>Price</th>
                 <th>Total</th>
                 <th>Sale Date</th>

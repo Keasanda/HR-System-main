@@ -53,7 +53,7 @@
 
 .navlinks{
 
-  font-size:xx-large;
+  font-size:40px;
   font-family: "PT Serif", serif;
   font-weight: 800;
   font-style: normal;
@@ -74,7 +74,7 @@
     grid-gap: 20px;
 
     /* Rainbow-colored linear gradient */
-    background-color: #41522E;
+    background-color: #28a745;
 }
 
 
@@ -146,14 +146,14 @@ margin-left: 10%;
     font-size: 16px;
     margin-left: 10px;
     cursor: pointer;
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
   }
   
   .search-button:hover {
-    background-color: #0056b3;
+    background-color: #28a745;
   }
   
 

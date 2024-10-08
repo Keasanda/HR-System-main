@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace api.Models
 {
-    public class ProductSale
-    {
-        
-        [Key]
-        public int SaleID { get; set; }
+  public class ProductSale
+  {
 
-        [Required]
-        public int ProductId { get; set; }
+    [Key]
+    public int SaleID { get; set; }
 
-        [Required]
-        public decimal SalePrice { get; set; }
+    [Required]
+    public int ProductId { get; set; }
 
-        [Required]
-        public int SaleQty { get; set; }
+    [Required]
+    public decimal SalePrice { get; set; }
 
-        [Required]
-        public DateTime SaleDate { get; set; }
+    [Required]
+    public int SaleQty { get; set; }
 
-        public Product Product { get; set; } 
+    [Required]
+    public DateTime SaleDate { get; set; }
 
-    }
+    public Product? Product { get; set; }  
+
+  }
 }

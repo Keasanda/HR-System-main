@@ -114,12 +114,8 @@ const ManageProducts = () => {
       <li className="navlinks">
         <FaHome /> <Link to="/">Home</Link>
       </li>
-      <li className="navlinks">
-        <GiBookshelf /> <Link to="/track-recording">Track Recording</Link>
-      </li>
-      <li className="navlinks">
-        <FcManager /> <Link to="/manage-products">Manage Products</Link>
-      </li>
+      <li className="navlinks"> <GiBookshelf /> <Link to="/track-recording">Product Tracking</Link></li>
+      <li className="navlinks"> <FcManager /> <Link to="/manage-products">Product Management  </Link></li>
     </ul>
   </nav>
 </aside>
