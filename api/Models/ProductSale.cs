@@ -24,7 +24,7 @@ namespace api.Models
     [Required]
     public DateTime SaleDate { get; set; }
 
-    public Product? Product { get; set; }  
+    public Product Product { get; set; }
 
   }
 }

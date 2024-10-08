@@ -45,7 +45,7 @@
     font-weight:bold;
     
     color: #f4f4f4;
-    background-color: #41522E;
+    background-color: #FCCD2A;
   }
 
 
@@ -74,7 +74,7 @@
     grid-gap: 20px;
 
     /* Rainbow-colored linear gradient */
-    background-color: #28a745;
+    background-color: #C0EBA6;
 }
 
 
@@ -146,7 +146,7 @@ margin-left: 10%;
     font-size: 16px;
     margin-left: 10px;
     cursor: pointer;
-    background-color: #28a745;
+    background-color: #FCCD2A;
     color: white;
     border: none;
     border-radius: 4px;

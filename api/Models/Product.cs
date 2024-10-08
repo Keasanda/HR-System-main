@@ -28,7 +28,7 @@ namespace api.Models
         
          public int Qty { get; set; } // New property for quantity
 
-        public ICollection<ProductSale>? Sales { get; set; }      // Relationship with sales
+        public ICollection<ProductSale> Sales { get; set; }      // Relationship with sales
 
 
 

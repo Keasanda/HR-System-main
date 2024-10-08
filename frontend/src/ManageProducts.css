@@ -30,7 +30,7 @@
   }
   
   .product-table th {
-    background-color: #41522E;
+    background-color: #C0EBA6;
     color: white;
     text-align: left;
 
@@ -92,7 +92,7 @@
   .save-changes-btn{
     margin-right: 10px;
     padding: 8px 12px;
-    background-color: #41522E;
+    background-color: #FCCD2A;
     color: white;
     border: none;
     border-radius: 4px;
