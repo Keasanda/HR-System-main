@@ -122,7 +122,7 @@ const ManageProducts = () => {
 
 
       <div className="content">
-        <h1>Manage Products</h1>
+        <h1 className="managementheading"> Product Management</h1>
 
         {successMessage && (
           <div className="success-message">

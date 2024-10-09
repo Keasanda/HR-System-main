@@ -134,10 +134,10 @@ const TrackRecording = () => {
               >
                 <img src={product.image} alt={product.description} className="product-image" />
                 <div className="product-info">
-                  <h2>{product.description}</h2>
-                  <p>Category: {product.category}</p>
-                  <p>Price: R{product.salePrice.toFixed(2)}</p>
-                  <p>Qty: {product.qty}</p>
+                  <h2 className="colour">{product.description}</h2>
+                  <p  className="newfont">Category: {product.category}</p>
+                  <p  className="newfont">Price: R{product.salePrice.toFixed(2)}</p>
+                  <p  className="newfont" >Qty: {product.qty}</p>
                 </div>
               </div>
             ))}

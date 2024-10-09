@@ -20,8 +20,14 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+
   }
   
+  .Saleshistory{
+
+    color: #C0EBA6;
+    font-weight: bolder;
+  }
   .sales-table th, .sales-table td {
     padding: 10px;
     border: 1px solid #ddd;
@@ -49,6 +55,8 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 81%;
+    width: 289px;
   }
   
   .back-button:hover {

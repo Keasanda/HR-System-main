@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+
 .manage-products-container {
     padding: 20px;
     background-color: #f4f4f4;
@@ -18,11 +22,21 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-   
-
-
+  
   }
   
+  .managementheading{
+
+    font-family: "Nunito";
+    font-optical-sizing: auto;
+    font-weight: bolder;
+    font-style: normal;
+    font-size: 40px;
+    color: #41522E;
+ 
+    
+  }
+
   .product-table th,
   .product-table td {
     border: 1px solid #ddd;

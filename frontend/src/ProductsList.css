@@ -1,9 +1,12 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+
+
+
 
 /* Overall container for sidebar and main content */
 .container {
@@ -40,10 +43,11 @@
   
   .product-list-heading{
 
-    font-family: "Roboto Slab", serif;
+    font-family: "Nunito";
     font-optical-sizing: auto;
-    font-weight:bold;
-    
+    font-weight: bolder;
+    font-style: normal;
+    font-size: 40px;
     color: #41522E;
   background-color: white;
   }
@@ -54,7 +58,7 @@
 .navlinks{
 
   font-size:40px;
-  font-family: "PT Serif", serif;
+  font-family: "Montserrat", sans-serif;
   font-weight: 800;
   font-style: normal;
 }
@@ -65,6 +69,15 @@
     padding: 20px;
     background-color: white;
     width: 100%;
+  }
+
+  .newfont{
+
+    font-family: "Dosis";
+    font-optical-sizing: auto;
+    font-weight: bolder;
+    font-style: normal;
+
   }
   
   /* Product grid with 4 columns */
@@ -80,6 +93,10 @@ padding-right: 2%;
     background-color: #C0EBA6;
 }
 
+.colour{
+
+  color: #FCCD2A;
+}
 
   /* Individual product card */
   .product-card {
