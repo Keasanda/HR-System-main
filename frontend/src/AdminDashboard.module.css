@@ -1,0 +1,188 @@
+.container {
+	display: flex;
+	height: 100vh;
+	background-color: #f5f5f5;
+	margin-left: 18%;
+  }
+  
+  .leftSide {
+	width: 30px; /* Adjust width as needed */
+  }
+  
+  .rightSide {
+	width: 95%;
+	padding: 20px;
+	margin-top: 40px;
+  }
+  
+  .pageTitle {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #4a4a4a;
+	margin-bottom: 20px;
+	text-align: center;
+  }
+  
+  /* Table controls (like add button) styling */
+  .tableControls {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+  }
+  
+  .addButton {
+	background: linear-gradient(135deg, #6D83F2, #2B4F63);
+	border: none;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 10px; /* Rounded edges */
+	padding: 8px 16px; /* Optional: Adjust padding for a balanced look */
+  }
+  
+  /* Error message styling */
+  .error {
+	color: red;
+	text-align: center;
+	margin-top: 10px;
+  }
+  
+  /* Table styling */
+  .userTable {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .userTable th, .userTable td {
+	padding: 12px;
+	text-align: left;
+	border: 1px solid #e0e0e0;
+  }
+  
+  /* Column header styling */
+  .userTable thead th {
+	background-color: #f0f0f0;
+	color: #333;
+	font-weight: bold;
+	text-align: center;
+	border-right: 1px solid #ddd; /* Line between columns */
+  }
+  
+  .userTable thead th:last-child {
+	border-right: none;
+  }
+  
+  .userTable tbody tr:hover {
+	background-color: #f9f9f9;
+  }
+  
+  /* Employee image styling */
+  .employeeImage {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 8px;
+	vertical-align: middle;
+  }
+
+ /* Wider first and second columns */
+.userTable th:first-child, .userTable td:first-child {
+	width: 20%; /* Increase width for the first column */
+  }
+  
+  .userTable th:nth-child(2), .userTable td:nth-child(2) {
+	width: 12%; /* Increase width for the second column */
+  }
+  
+  /* Equal width for remaining columns */
+  .userTable th:not(:first-child):not(:nth-child(2)),
+  .userTable td:not(:first-child):not(:nth-child(2)) {
+	width: calc(64% / 6); /* Adjust for other columns */
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+	.leftSide {
+	  display: none; /* Hide sidebar on smaller screens */
+	}
+	.rightSide {
+	  width: 100%;
+	  padding: 10px;
+	}
+	.tableControls {
+	  justify-content: center;
+	}
+  }
+
+  .tableWrapper {
+    flex-grow: 1; /* Takes up remaining space */
+    overflow-y: auto; /* Allow scrolling if content is too long */
+}
+
+.paginationWrapper {
+    margin-top: auto; /* Keeps pagination fixed at the bottom */
+    padding: 15px 0;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	margin-top: 480px;
+}
+
+.pagination {
+    display: flex;
+    gap: 15px;
+}
+
+.pageButton {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #007bff;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s ease;
+}
+
+.pageButton:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pageButton:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    border-color: #e9ecef;
+}
+
+.pageNumber {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Ensure dropdown items are displayed in a vertical column */
+.dropdown-menu {
+    display: block; /* Ensure the menu items are displayed as block elements */
+}
+
+.Item {
+    padding: 10px 15px; /* Padding for dropdown items */
+    color: #f4f6f8; /* Default text color */
+    background-color: #6c757d;
+    display: block; /* Ensure items are displayed as block elements */
+    border-bottom: 1px solid #e9ecef; /* Optional: Add a bottom border for visual separation */
+}
+
+.Item:last-child {
+    border-bottom: none; /* Remove bottom border for the last item */
+}
+
+.Item:hover {
+    background-color: #989ca0; /* Light background on hover */
+    color: #000; /* Darker text color on hover */
+}
