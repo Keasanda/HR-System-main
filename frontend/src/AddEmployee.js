@@ -47,7 +47,11 @@ const AddEmployee = () => {
       errors.identityNumber = "Identity Number is required.";
     if (!formData.passportNumber)
       errors.passportNumber = "Passport Number is required.";
-    if (!formData.taxNumber) errors.taxNumber = "Tax Number is required.";
+    if (!formData.taxNumber) {
+      errors.taxNumber = "Tax Number is required.";
+    } else if (formData.taxNumber.length !== 10) {
+      errors.taxNumber = "Tax Number must be exactly 10 digits long.";
+    }
     if (!formData.salary) errors.salary = "Salary is required.";
     if (!formData.contractType)
       errors.contractType = "Employment Status is required.";
