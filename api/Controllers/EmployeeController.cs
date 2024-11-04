@@ -42,10 +42,21 @@ public class EmployeeController : ControllerBase
         _emailSender = emailSender;
     }
 
-
-     [HttpPost]
+[HttpPost]
 public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeDto)
 {
+    // Check if any of the unique fields (IdentityNumber, PassportNumber, TaxNumber, Email) already exists in the database
+    bool employeeExists = await _context.Employees.AnyAsync(e =>
+        e.IdentityNumber == employeeDto.IdentityNumber ||
+        e.PassportNumber == employeeDto.PassportNumber ||
+        e.TaxNumber == employeeDto.TaxNumber ||
+        e.Email == employeeDto.Email);
+
+    if (employeeExists)
+    {
+        return Conflict("An employee with the same Identity Number, Passport Number, Tax Number, or Email already exists.");
+    }
+
     // Step 1: Create a new AppUser record
     var user = new AppUser
     {

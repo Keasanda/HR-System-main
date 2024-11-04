@@ -116,8 +116,14 @@ const AddEmployee = () => {
           });
         })
         .catch((error) => {
-          console.error("Error uploading image or sending data:", error);
           setLoading(false);
+          // Check if the error response is a conflict (409)
+          if (error.response && error.response.status === 409) {
+            setErrorMessages([error.response.data]); // Set the error message from backend
+          } else {
+            console.error("Error sending data:", error);
+            setErrorMessages(["An unexpected error occurred."]); // Fallback error message
+          }
         });
     } else {
       axios
@@ -148,8 +154,14 @@ const AddEmployee = () => {
           });
         })
         .catch((error) => {
-          console.error("Error sending data:", error);
           setLoading(false);
+          // Check if the error response is a conflict (409)
+          if (error.response && error.response.status === 409) {
+            setErrorMessages([error.response.data]); // Set the error message from backend
+          } else {
+            console.error("Error sending data:", error);
+            setErrorMessages(["An unexpected error occurred."]); // Fallback error message
+          }
         });
     }
   };
@@ -187,6 +199,7 @@ const AddEmployee = () => {
   };
 
   return (
+
     <div className={styles.parentContainer}>
       <div className={styles.leftSide}>
         <div className={styles.sidebar}>
@@ -204,6 +217,18 @@ const AddEmployee = () => {
           {successMessage && (
             <div className={styles.successMessage}>{successMessage}</div>
           )}
+
+  {/* Error messages */}
+  {errorMessages.length > 0 && (
+    <div className={styles.errorMessage}>
+      {errorMessages.map((error, index) => (
+        <div key={index}>{error}</div>
+      ))}
+    </div>
+  )}
+
+
+
 
           {/* Row 1: Name & Surname */}
           <div className={styles.formRow}>
@@ -564,5 +589,6 @@ const AddEmployee = () => {
     </div>
   );
 };
+
 
 export default AddEmployee;
