@@ -383,46 +383,40 @@ const AddEmployee = () => {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="identityNumber" className={styles.label}>
-                Identity Number
-              </label>
-              {errorMessages.identityNumber && (
-                <div className={styles.errorMessage}>
-                  {errorMessages.identityNumber}
-                </div>
-              )}{" "}
-              <input
-                type="text"
-                name="identityNumber"
-                id="identityNumber"
-                placeholder="Identity Number"
-                value={formData.identityNumber}
-                onChange={handleInputChange}
-                className={styles.inputField}
-              />
-            </div>
+            <label htmlFor="identityNumber" className={styles.label}>
+              Identity Number
+            </label>
+            <input
+              type="text"
+              name="identityNumber"
+              id="identityNumber"
+              placeholder="Identity Number"
+              value={formData.identityNumber}
+              onChange={handleInputChange}
+              className={styles.inputField}
+              disabled={formData.passportNumber !== ""}
+            />
+          </div>
           </div>
 
           {/* Row 3: Passport Number & Date of Birth */}
           <div className={styles.formRow}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="name" className={styles.label}>
-                Passport Number
-              </label>
-              {errorMessages.passportNumber && (
-                <div className={styles.errorMessage}>
-                  {errorMessages.passportNumber}
-                </div>
-              )}{" "}
-              <input
-                type="text"
-                name="passportNumber"
-                placeholder="Passport Number"
-                value={formData.passportNumber}
-                onChange={handleInputChange}
-                className={styles.inputField}
-              />
-            </div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="passportNumber" className={styles.label}>
+              Passport Number
+            </label>
+            <input
+              type="text"
+              name="passportNumber"
+              placeholder="Passport Number"
+              value={formData.passportNumber}
+              onChange={handleInputChange}
+              className={styles.inputField}
+              disabled={formData.identityNumber !== ""}
+            />
+          </div>
+        
+
             <div className={styles.inputGroup}>
               <label htmlFor="name" className={styles.label}>
                 Date Of Birth
@@ -485,26 +479,27 @@ const AddEmployee = () => {
 
           {/* Row 5: Marital Status & Salary */}
           <div className={styles.formRow}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="name" className={styles.label}>
-                Employment Status
-              </label>
-              {errorMessages.contractType && (
-                <div className={styles.errorMessage}>
-                  {errorMessages.contractType}
-                </div>
-              )}{" "}
-              <select
-                name="contractType"
-                value={formData.contractType}
-                onChange={handleInputChange}
-                className={styles.inputField}
-              >
-                <option value="">Select Employment Status</option>
-                <option value="Permanent">Permanent</option>
-                <option value="Married">Temporal</option>
-              </select>
-            </div>
+          <div className={styles.inputGroup}>
+  <label htmlFor="name" className={styles.label}>
+    Employment Status
+  </label>
+  {errorMessages.contractType && (
+    <div className={styles.errorMessage}>
+      {errorMessages.contractType}
+    </div>
+  )}
+  <select
+    name="contractType"
+    value={formData.contractType}
+    onChange={handleInputChange}
+    className={styles.inputField}
+  >
+    <option value="">Select Employment Status</option>
+    <option value="Permanent">Permanent</option>
+    <option value="Temporal">Temporal</option>
+  </select>
+</div>
+
             <div className={styles.inputGroup}>
               <label htmlFor="name" className={styles.label}>
                 Tax Number
@@ -545,22 +540,23 @@ const AddEmployee = () => {
               />
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="endDate" className={styles.label}>
-                End Date
-              </label>
-              {errorMessages.endDate && (
-                <div className={styles.errorMessage}>
-                  {errorMessages.endDate}
-                </div>
-              )}{" "}
-              <input
-                type="date"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleInputChange}
-                className={styles.inputField}
-              />
-            </div>
+  <label htmlFor="endDate" className={styles.label}>
+    End Date
+  </label>
+  {errorMessages.endDate && (
+    <div className={styles.errorMessage}>
+      {errorMessages.endDate}
+    </div>
+  )}
+  <input
+    type="date"
+    name="endDate"
+    value={formData.endDate}
+    onChange={handleInputChange}
+    className={styles.inputField}
+    disabled={formData.contractType === 'Permanent'} // Disable when "Permanent" is selected
+  />
+</div>
           </div>
 
           {/* Address Rows: Physical and Postal */}
