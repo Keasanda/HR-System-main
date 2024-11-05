@@ -37,9 +37,9 @@ const AddEmployee = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-
-    const errors = [];
-
+  
+    const errors = {};
+  
     if (!formData.name) errors.name = "Name is required.";
     if (!formData.surname) errors.surname = "Surname is required.";
     if (!formData.email) errors.email = "Email is required.";
@@ -61,35 +61,34 @@ const AddEmployee = () => {
     if (!formData.postalAddress)
       errors.postalAddress = "Postal Address is required.";
     if (!formData.passwordHash) errors.passwordHash = "Password is required.";
-
+  
     if (Object.keys(errors).length > 0) {
       setLoading(false);
       setErrorMessages(errors);
       return;
     }
-
+  
     setErrorMessages([]);
-
+  
+    // Prepare form data to send, excluding `endDate` if it’s empty
+    const dataToSend = { ...formData };
+    if (!dataToSend.endDate) {
+      delete dataToSend.endDate;
+    }
+  
+    // Send request based on whether imageSelected is provided
     if (imageSelected) {
       const uploadFormData = new FormData();
       uploadFormData.append("file", imageSelected);
       uploadFormData.append("upload_preset", "wywylbfz");
-
+  
       axios
-        .post(
-          "https://api.cloudinary.com/v1_1/drgxphf5l/image/upload",
-          uploadFormData
-        )
+        .post("https://api.cloudinary.com/v1_1/drgxphf5l/image/upload", uploadFormData)
         .then((response) => {
           const imageUrl = response.data.secure_url;
-
-          setFormData((prevData) => ({
-            ...prevData,
-            url: imageUrl,
-          }));
-
+  
           return axios.post("http://localhost:5239/api/employee", {
-            ...formData,
+            ...dataToSend,
             url: imageUrl,
           });
         })
@@ -98,77 +97,56 @@ const AddEmployee = () => {
           setImageUrls((prev) => [...prev, formData.url]);
           setLoading(false);
           setSuccessMessage("Employee added successfully!");
-
-          setFormData({
-            name: "",
-            surname: "",
-            email: "",
-            identityNumber: "",
-            passportNumber: "",
-            dateOfBirth: "",
-            gender: "",
-            taxNumber: "",
-            maritalStatus: "",
-            physicalAddress: "",
-            postalAddress: "",
-            salary: "",
-            contractType: "",
-            startDate: "",
-            endDate: "",
-            url: "",
-            passwordHash: "",
-          });
+          resetForm();
         })
-        .catch((error) => {
-          setLoading(false);
-          // Check if the error response is a conflict (409)
-          if (error.response && error.response.status === 409) {
-            setErrorMessages([error.response.data]); // Set the error message from backend
-          } else {
-            console.error("Error sending data:", error);
-            setErrorMessages(["An unexpected error occurred."]); // Fallback error message
-          }
-        });
+        .catch((error) => handleError(error));
     } else {
       axios
-        .post("http://localhost:5239/api/employee", formData)
+        .post("http://localhost:5239/api/employee", dataToSend)
         .then((response) => {
           console.log("Data successfully sent to backend:", response.data);
           setLoading(false);
           setSuccessMessage("Employee added successfully!");
-
-          setFormData({
-            name: "",
-            surname: "",
-            email: "",
-            identityNumber: "",
-            passportNumber: "",
-            dateOfBirth: "",
-            gender: "",
-            taxNumber: "",
-            maritalStatus: "",
-            physicalAddress: "",
-            postalAddress: "",
-            salary: "",
-            contractType: "",
-            startDate: "",
-            endDate: "",
-            url: "",
-            passwordHash: "",
-          });
+          resetForm();
         })
-        .catch((error) => {
-          setLoading(false);
-          // Check if the error response is a conflict (409)
-          if (error.response && error.response.status === 409) {
-            setErrorMessages([error.response.data]); // Set the error message from backend
-          } else {
-            console.error("Error sending data:", error);
-            setErrorMessages(["An unexpected error occurred."]); // Fallback error message
-          }
-        });
+        .catch((error) => handleError(error));
     }
   };
+  
+  // Helper function to reset the form fields
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      surname: "",
+      email: "",
+      identityNumber: "",
+      passportNumber: "",
+      dateOfBirth: "",
+      gender: "",
+      taxNumber: "",
+      maritalStatus: "",
+      physicalAddress: "",
+      postalAddress: "",
+      salary: "",
+      contractType: "",
+      startDate: "",
+      endDate: "",
+      url: "",
+      passwordHash: "",
+    });
+  };
+  
+  // Helper function to handle errors
+  const handleError = (error) => {
+    setLoading(false);
+    if (error.response && error.response.status === 409) {
+      setErrorMessages([error.response.data]);
+    } else {
+      console.error("Error sending data:", error);
+      setErrorMessages(["An unexpected error occurred."]);
+    }
+  };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

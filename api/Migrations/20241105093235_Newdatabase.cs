@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class New : Migration
+    public partial class Newdatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -249,8 +249,8 @@ namespace api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassportNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TaxNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -260,10 +260,10 @@ namespace api.Migrations
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ContractType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -273,8 +273,7 @@ namespace api.Migrations
                         name: "FK_Employees_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "AppUserId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "AppUserId");
                 });
 
             migrationBuilder.CreateTable(
@@ -361,9 +360,9 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "7e65d709-3d5a-4d0b-993d-074160e67ca7", null, "Employee", "Employee" },
-                    { "ecc68ae1-4785-4694-b00a-6b8760038d3a", null, "Executive", "Executive" },
-                    { "f6089e93-c408-402c-a785-5b1c4f1ee423", null, "Admin", "ADMIN" }
+                    { "48ef7f86-ffd3-41f2-ae29-fbe4914a0b1d", null, "Executive", "Executive" },
+                    { "5c4a21fc-e29e-43b4-897d-e2b77c5ab0a3", null, "Admin", "ADMIN" },
+                    { "be78edf4-d770-421e-bac7-8e21c4cd2910", null, "Employee", "Employee" }
                 });
 
             migrationBuilder.CreateIndex(
