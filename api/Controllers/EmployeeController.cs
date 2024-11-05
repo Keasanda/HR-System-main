@@ -43,16 +43,16 @@ public class EmployeeController : ControllerBase
     }
   
 
-  
 [HttpPost]
 public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeDto)
 {
     // Check if any of the unique fields (IdentityNumber, PassportNumber, TaxNumber, Email) already exists in the database
     bool employeeExists = await _context.Employees.AnyAsync(e =>
-        e.IdentityNumber == employeeDto.IdentityNumber ||
-        e.PassportNumber == employeeDto.PassportNumber ||
-        e.TaxNumber == employeeDto.TaxNumber ||
-        e.Email == employeeDto.Email);
+        (!string.IsNullOrEmpty(employeeDto.IdentityNumber) && e.IdentityNumber == employeeDto.IdentityNumber) ||
+        (!string.IsNullOrEmpty(employeeDto.PassportNumber) && e.PassportNumber == employeeDto.PassportNumber) ||
+        (!string.IsNullOrEmpty(employeeDto.TaxNumber) && e.TaxNumber == employeeDto.TaxNumber) ||
+        (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email)
+    );
 
     if (employeeExists)
     {
@@ -122,6 +122,7 @@ public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeD
 
     return Ok(new { Message = "User and employee created successfully." });
 }
+
 
 
 [HttpGet]
