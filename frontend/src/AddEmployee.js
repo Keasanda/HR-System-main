@@ -45,8 +45,119 @@ const AddEmployee = () => {
     if (!formData.email) errors.email = "Email is required.";
     if (!formData.identityNumber)
       errors.identityNumber = "Identity Number is required.";
-    if (!formData.passportNumber)
-      errors.passportNumber = "Passport Number is required.";
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      setLoading(true);
+    
+      const errors = {};
+    
+      if (!formData.name) errors.name = "Name is required.";
+      if (!formData.surname) errors.surname = "Surname is required.";
+      if (!formData.email) errors.email = "Email is required.";
+      if (!formData.identityNumber)
+        errors.identityNumber = "Identity Number is required.";
+      if (!formData.passportNumber)
+        errors.passportNumber = "Passport Number is required.";
+      if (!formData.taxNumber) {
+        errors.taxNumber = "Tax Number is required.";
+      } else if (formData.taxNumber.length !== 10) {
+        errors.taxNumber = "Tax Number must be exactly 10 digits long.";
+      }
+      if (!formData.salary) errors.salary = "Salary is required.";
+      if (!formData.contractType)
+        errors.contractType = "Employment Status is required.";
+      if (!formData.startDate) errors.startDate = "Start Date is required.";
+      if (!formData.physicalAddress)
+        errors.physicalAddress = "Physical Address is required.";
+      if (!formData.postalAddress)
+        errors.postalAddress = "Postal Address is required.";
+      if (!formData.passwordHash) errors.passwordHash = "Password is required.";
+    
+      if (Object.keys(errors).length > 0) {
+        setLoading(false);
+        setErrorMessages(errors);
+        return;
+      }
+    
+      setErrorMessages([]);
+    
+      // Prepare form data to send, excluding `endDate` if it’s empty
+      const dataToSend = { ...formData };
+      if (!dataToSend.endDate) {
+        delete dataToSend.endDate;
+      }
+    
+      // Send request based on whether imageSelected is provided
+      if (imageSelected) {
+        const uploadFormData = new FormData();
+        uploadFormData.append("file", imageSelected);
+        uploadFormData.append("upload_preset", "wywylbfz");
+    
+        axios
+          .post("https://api.cloudinary.com/v1_1/drgxphf5l/image/upload", uploadFormData)
+          .then((response) => {
+            const imageUrl = response.data.secure_url;
+    
+            return axios.post("http://localhost:5239/api/employee", {
+              ...dataToSend,
+              url: imageUrl,
+            });
+          })
+          .then((response) => {
+            console.log("Data successfully sent to backend:", response.data);
+            setImageUrls((prev) => [...prev, formData.url]);
+            setLoading(false);
+            setSuccessMessage("Employee added successfully!");
+            resetForm();
+          })
+          .catch((error) => handleError(error));
+      } else {
+        axios
+          .post("http://localhost:5239/api/employee", dataToSend)
+          .then((response) => {
+            console.log("Data successfully sent to backend:", response.data);
+            setLoading(false);
+            setSuccessMessage("Employee added successfully!");
+            resetForm();
+          })
+          .catch((error) => handleError(error));
+      }
+    };
+    
+    // Helper function to reset the form fields
+    const resetForm = () => {
+      setFormData({
+        name: "",
+        surname: "",
+        email: "",
+        identityNumber: "",
+        passportNumber: "",
+        dateOfBirth: "",
+        gender: "",
+        taxNumber: "",
+        maritalStatus: "",
+        physicalAddress: "",
+        postalAddress: "",
+        salary: "",
+        contractType: "",
+        startDate: "",
+        endDate: "",
+        url: "",
+        passwordHash: "",
+      });
+    };
+    
+    // Helper function to handle errors
+    const handleError = (error) => {
+      setLoading(false);
+      if (error.response && error.response.status === 409) {
+        setErrorMessages([error.response.data]);
+      } else {
+        console.error("Error sending data:", error);
+        setErrorMessages(["An unexpected error occurred."]);
+      }
+    };
+    
     if (!formData.taxNumber) {
       errors.taxNumber = "Tax Number is required.";
     } else if (formData.taxNumber.length !== 10) {
