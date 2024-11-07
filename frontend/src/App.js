@@ -13,6 +13,8 @@ import Qualifications from "./Qualifications";
 import AdminDashboard from "./AdminDashboard";
 import Performance from "./Performance";
 import JobTitle from './JobTitle';
+import AddBankingDetail from './AddBankingDetail';
+
 
 
 
@@ -45,6 +47,7 @@ function App() {
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         <Route path="/performance" element={<Performance />} />
         <Route path="/job-title" element={<JobTitle />} />
+        <Route path= "/add-banking-detail" element={<AddBankingDetail />} />
         
       </Routes>
     </Router>
