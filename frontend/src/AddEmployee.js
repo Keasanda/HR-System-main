@@ -7,31 +7,46 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
+
+
+
 const AddEmployee = () => {
+
   const [imageSelected, setImageSelected] = useState("");
   const [imageUrls, setImageUrls] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessages, setErrorMessages] = useState([]);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
-    email: "",
-    identityNumber: "",
-    passportNumber: "",
-    dateOfBirth: "",
-    gender: "",
-    taxNumber: "",
-    maritalStatus: "",
-    physicalAddress: "",
-    postalAddress: "",
-    salary: "",
-    contractType: "",
-    startDate: "",
-    endDate: "",
-    url: "",
-    passwordHash: "",
+  const [formData, setFormData] = useState(() => {
+    // Retrieve data from local storage on component mount
+    const storedData = localStorage.getItem("formData");
+    return storedData ? JSON.parse(storedData) : {
+      name: "",
+      surname: "",
+      email: "",
+      identityNumber: "",
+      passportNumber: "",
+      dateOfBirth: "",
+      gender: "",
+      taxNumber: "",
+      maritalStatus: "",
+      physicalAddress: "",
+      postalAddress: "",
+      salary: "",
+      contractType: "",
+      startDate: "",
+      endDate: "",
+      url: "",
+      passwordHash: "",
+    };
   });
+
+  const handleNext = () => {
+    localStorage.setItem("formData", JSON.stringify(formData)); // Store data in LocalStorage
+    navigate('/add-banking-detail', { state: { formData } }); // Previous approach (optional)
+  };
+
+
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
@@ -292,6 +307,9 @@ const AddEmployee = () => {
   };
 
   return (
+
+
+
 
     <div className={styles.parentContainer}>
       <div className={styles.leftSide}>
@@ -661,6 +679,16 @@ const AddEmployee = () => {
       Next
     </button>
 </div>
+
+
+ {/* existing form code... */}
+ <button onClick={handleNext} className={styles.nextButton}>
+        Next
+      </button>
+
+
+
+
 </form>
 
         {/* Display uploaded images */}

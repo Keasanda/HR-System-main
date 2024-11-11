@@ -10,6 +10,7 @@ const AddBankingDetail = ({ onSuccess }) => {
   const [accountType, setAccountType] = useState('');
   const [branchCode, setBranchCode] = useState('');
   const [error, setError] = useState('');
+  const [appUserId, setAppUserId] = useState('');
 
   // Retrieve user ID from local storage
   const user = JSON.parse(localStorage.getItem('user'));
@@ -29,6 +30,7 @@ const AddBankingDetail = ({ onSuccess }) => {
         accountNumber,
         accountType,
         branchCode,
+        appUserId
       });
 
       // Handle successful response
@@ -39,6 +41,7 @@ const AddBankingDetail = ({ onSuccess }) => {
       setAccountNumber('');
       setAccountType('');
       setBranchCode('');
+      setAppUserId('');
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'An error occurred while adding banking details.');
@@ -71,6 +74,21 @@ const AddBankingDetail = ({ onSuccess }) => {
             required
           />
         </div>
+
+
+        <div className={EmployeeDetailsCSS.inputGroup}>
+          <label>appUserId</label>
+          <input
+            type="text"
+            value={accountNumber}
+            onChange={(e) => setAppUserId(e.target.value)}
+            className={EmployeeDetailsCSS.inputField}
+            required
+          />
+        </div>
+
+
+        
 
         <div className={EmployeeDetailsCSS.inputGroup}>
           <label>Account Type</label>

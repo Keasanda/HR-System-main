@@ -14,7 +14,7 @@ import AdminDashboard from "./AdminDashboard";
 import Performance from "./Performance";
 import JobTitle from './JobTitle';
 import AddBankingDetail from './AddBankingDetail';
-
+import { FormProvider } from './FormContext';
 
 
 
@@ -32,6 +32,10 @@ const ConditionalNavbar = () => {
 
 function App() {
   return (
+
+    <FormProvider>
+
+
     <Router>
       <ConditionalNavbar /> {/* Navbar will only show on the home page */}
       <Routes>
@@ -51,6 +55,8 @@ function App() {
         
       </Routes>
     </Router>
+
+    </FormProvider>
   );
 }
 
