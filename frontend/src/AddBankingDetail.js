@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import EmployeeDetailsCSS from "./EmployeeDetails.module.css";
 
-
-
 const AddBankingDetail = ({ onSuccess }) => {
-  const [bankName, setBankName] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [accountType, setAccountType] = useState('');
-  const [branchCode, setBranchCode] = useState('');
+  const [bankName, setBankName] = useState(localStorage.getItem('bankName') || '');
+  const [accountNumber, setAccountNumber] = useState(localStorage.getItem('accountNumber') || '');
+  const [accountType, setAccountType] = useState(localStorage.getItem('accountType') || '');
+  const [branchCode, setBranchCode] = useState(localStorage.getItem('branchCode') || '');
   const [error, setError] = useState('');
   const [appUserId, setAppUserId] = useState('');
 
-  // Retrieve user ID from local storage
+  // Retrieve user ID from local storage (assuming you have a separate mechanism)
   const user = JSON.parse(localStorage.getItem('user'));
   const userID = user?.userID;
 
-  const handleSubmit = async (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     if (!userID) {
       alert('No user ID found in local storage.');
@@ -30,18 +28,17 @@ const AddBankingDetail = ({ onSuccess }) => {
         accountNumber,
         accountType,
         branchCode,
-        appUserId
       });
 
       // Handle successful response
       onSuccess(response.data);
       alert('Banking details added successfully');
-      // Reset form fields
-      setBankName('');
-      setAccountNumber('');
-      setAccountType('');
-      setBranchCode('');
-      setAppUserId('');
+
+      // Clear local storage (optional, consider user experience)
+      localStorage.removeItem('bankName');
+      localStorage.removeItem('accountNumber');
+      localStorage.removeItem('accountType');
+      localStorage.removeItem('branchCode');
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'An error occurred while adding banking details.');
@@ -52,13 +49,16 @@ const AddBankingDetail = ({ onSuccess }) => {
     <div className={EmployeeDetailsCSS.container}>
       <h3>Add Banking Details</h3>
       {error && <div className={EmployeeDetailsCSS.error}>{error}</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleFormSubmit}>
         <div className={EmployeeDetailsCSS.inputGroup}>
           <label>Bank Name</label>
           <input
             type="text"
             value={bankName}
-            onChange={(e) => setBankName(e.target.value)}
+            onChange={(e) => {
+              setBankName(e.target.value);
+              localStorage.setItem('bankName', e.target.value);
+            }}
             className={EmployeeDetailsCSS.inputField}
             required
           />
@@ -69,33 +69,24 @@ const AddBankingDetail = ({ onSuccess }) => {
           <input
             type="text"
             value={accountNumber}
-            onChange={(e) => setAccountNumber(e.target.value)}
+            onChange={(e) => {
+              setAccountNumber(e.target.value);
+              localStorage.setItem('accountNumber', e.target.value);
+            }}
             className={EmployeeDetailsCSS.inputField}
             required
           />
         </div>
-
-
-        <div className={EmployeeDetailsCSS.inputGroup}>
-          <label>appUserId</label>
-          <input
-            type="text"
-            value={accountNumber}
-            onChange={(e) => setAppUserId(e.target.value)}
-            className={EmployeeDetailsCSS.inputField}
-            required
-          />
-        </div>
-
-
-        
 
         <div className={EmployeeDetailsCSS.inputGroup}>
           <label>Account Type</label>
           <input
             type="text"
             value={accountType}
-            onChange={(e) => setAccountType(e.target.value)}
+            onChange={(e) => {
+              setAccountType(e.target.value);
+              localStorage.setItem('accountType', e.target.value);
+            }}
             className={EmployeeDetailsCSS.inputField}
             required
           />
@@ -106,7 +97,10 @@ const AddBankingDetail = ({ onSuccess }) => {
           <input
             type="text"
             value={branchCode}
-            onChange={(e) => setBranchCode(e.target.value)}
+            onChange={(e) => {
+              setBranchCode(e.target.value);
+              localStorage.setItem('branchCode', e.target.value);
+            }}
             className={EmployeeDetailsCSS.inputField}
             required
           />
