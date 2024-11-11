@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import EmployeeDetailsCSS from "./EmployeeDetails.module.css";
+import { useNavigate } from "react-router-dom";
 
 const AddBankingDetail = ({ onSuccess }) => {
   const [bankName, setBankName] = useState(localStorage.getItem('bankName') || '');
@@ -9,7 +10,7 @@ const AddBankingDetail = ({ onSuccess }) => {
   const [branchCode, setBranchCode] = useState(localStorage.getItem('branchCode') || '');
   const [error, setError] = useState('');
   const [appUserId, setAppUserId] = useState('');
-
+  const navigate = useNavigate();
   // Retrieve user ID from local storage (assuming you have a separate mechanism)
   const user = JSON.parse(localStorage.getItem('user'));
   const userID = user?.userID;
@@ -44,6 +45,12 @@ const AddBankingDetail = ({ onSuccess }) => {
       setError(err.response?.data?.message || 'An error occurred while adding banking details.');
     }
   };
+
+  const handleNext = () => {
+   
+    navigate('/add-employee'); // Previous approach (optional)
+  };
+
 
   return (
     <div className={EmployeeDetailsCSS.container}>
@@ -110,7 +117,19 @@ const AddBankingDetail = ({ onSuccess }) => {
           Add Banking Details
         </button>
       </form>
+
+  {/* existing form code... */}
+  <button onClick={handleNext} className={EmployeeDetailsCSS.backButton}>
+        Back
+      </button>
+
+
     </div>
+
+
+    
+
+
   );
 };
 
