@@ -218,29 +218,6 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BankingDetails",
-                columns: table => new
-                {
-                    BankingDetailId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BankName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountNumber = table.Column<int>(type: "int", nullable: false),
-                    BranchCode = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BankingDetails", x => x.BankingDetailId);
-                    table.ForeignKey(
-                        name: "FK_BankingDetails_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "AppUserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -263,6 +240,13 @@ namespace api.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BankName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountNumber = table.Column<int>(type: "int", nullable: false),
+                    BranchCode = table.Column<int>(type: "int", nullable: false),
+                    QualificationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    YearCompleted = table.Column<int>(type: "int", nullable: false),
+                    Institution = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -274,28 +258,6 @@ namespace api.Migrations
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "AppUserId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Qualifications",
-                columns: table => new
-                {
-                    QualificationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QualificationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearCompleted = table.Column<int>(type: "int", nullable: false),
-                    Institution = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Qualifications", x => x.QualificationId);
-                    table.ForeignKey(
-                        name: "FK_Qualifications_AspNetUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "AppUserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -360,9 +322,9 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "48ef7f86-ffd3-41f2-ae29-fbe4914a0b1d", null, "Executive", "Executive" },
-                    { "5c4a21fc-e29e-43b4-897d-e2b77c5ab0a3", null, "Admin", "ADMIN" },
-                    { "be78edf4-d770-421e-bac7-8e21c4cd2910", null, "Employee", "Employee" }
+                    { "11f55887-762b-4bb9-999e-a7f64956b891", null, "Admin", "ADMIN" },
+                    { "7d5ff60f-1ba5-4fcc-8856-f9bb3f7791a0", null, "Executive", "Executive" },
+                    { "bbacceff-93cd-478b-b7d5-f13f4ca65c40", null, "Employee", "Employee" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -405,11 +367,6 @@ namespace api.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BankingDetails_AppUserId",
-                table: "BankingDetails",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_AppUserId",
                 table: "Employees",
                 column: "AppUserId");
@@ -428,11 +385,6 @@ namespace api.Migrations
                 name: "IX_LeavePolicies_JobGradeId",
                 table: "LeavePolicies",
                 column: "JobGradeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Qualifications_AppUserId",
-                table: "Qualifications",
-                column: "AppUserId");
         }
 
         /// <inheritdoc />
@@ -454,9 +406,6 @@ namespace api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BankingDetails");
-
-            migrationBuilder.DropTable(
                 name: "ForgotPasswordModels");
 
             migrationBuilder.DropTable(
@@ -464,9 +413,6 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Logins");
-
-            migrationBuilder.DropTable(
-                name: "Qualifications");
 
             migrationBuilder.DropTable(
                 name: "ResetPasswordModels");

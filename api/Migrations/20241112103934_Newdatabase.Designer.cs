@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241105093235_Newdatabase")]
+    [Migration("20241112103934_Newdatabase")]
     partial class Newdatabase
     {
         /// <inheritdoc />
@@ -54,19 +54,19 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5c4a21fc-e29e-43b4-897d-e2b77c5ab0a3",
+                            Id = "11f55887-762b-4bb9-999e-a7f64956b891",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "be78edf4-d770-421e-bac7-8e21c4cd2910",
+                            Id = "bbacceff-93cd-478b-b7d5-f13f4ca65c40",
                             Name = "Employee",
                             NormalizedName = "Employee"
                         },
                         new
                         {
-                            Id = "48ef7f86-ffd3-41f2-ae29-fbe4914a0b1d",
+                            Id = "7d5ff60f-1ba5-4fcc-8856-f9bb3f7791a0",
                             Name = "Executive",
                             NormalizedName = "Executive"
                         });
@@ -244,13 +244,13 @@ namespace api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("api.Models.BankingDetail", b =>
+            modelBuilder.Entity("api.Models.Employee", b =>
                 {
-                    b.Property<int>("BankingDetailId")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BankingDetailId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
                     b.Property<int>("AccountNumber")
                         .HasColumnType("int");
@@ -260,7 +260,6 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AppUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BankName")
@@ -269,24 +268,6 @@ namespace api.Migrations
 
                     b.Property<int>("BranchCode")
                         .HasColumnType("int");
-
-                    b.HasKey("BankingDetailId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("BankingDetails");
-                });
-
-            modelBuilder.Entity("api.Models.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ContractType")
                         .IsRequired()
@@ -307,6 +288,10 @@ namespace api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IdentityNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Institution")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaritalStatus")
@@ -332,6 +317,10 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("QualificationType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RoleId")
                         .HasColumnType("nvarchar(max)");
 
@@ -352,6 +341,9 @@ namespace api.Migrations
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearCompleted")
+                        .HasColumnType("int");
 
                     b.HasKey("EmployeeId");
 
@@ -467,36 +459,6 @@ namespace api.Migrations
                     b.ToTable("Logins");
                 });
 
-            modelBuilder.Entity("api.Models.Qualification", b =>
-                {
-                    b.Property<int>("QualificationId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QualificationId"));
-
-                    b.Property<string>("AppUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Institution")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QualificationType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("YearCompleted")
-                        .HasColumnType("int");
-
-                    b.HasKey("QualificationId");
-
-                    b.HasIndex("AppUserId");
-
-                    b.ToTable("Qualifications");
-                });
-
             modelBuilder.Entity("api.Models.ResetPasswordModel", b =>
                 {
                     b.Property<int>("Id")
@@ -597,17 +559,6 @@ namespace api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("api.Models.BankingDetail", b =>
-                {
-                    b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("api.Models.Employee", b =>
                 {
                     b.HasOne("api.Models.AppUser", "AppUser")
@@ -642,17 +593,6 @@ namespace api.Migrations
                         .HasForeignKey("JobGradeId");
 
                     b.Navigation("JobGrade");
-                });
-
-            modelBuilder.Entity("api.Models.Qualification", b =>
-                {
-                    b.HasOne("api.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("api.Models.AppUser", b =>

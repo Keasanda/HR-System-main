@@ -29,7 +29,20 @@ namespace api.Mappers
                 ContractType = employeeModel.ContractType,
                 StartDate = employeeModel.StartDate,
                 EndDate = employeeModel.EndDate,
-                PasswordHash = employeeModel.PasswordHash
+                PasswordHash = employeeModel.PasswordHash ,
+
+                BankName = employeeModel.BankName,
+                 AccountType = employeeModel.AccountType,
+                 AccountNumber = employeeModel.BranchCode ,
+
+
+                 QualificationType = employeeModel.QualificationType,
+
+                 YearCompleted = employeeModel.YearCompleted ,
+
+                 Institution = employeeModel.Institution
+
+                
                 
             };
         }
@@ -52,7 +65,19 @@ namespace api.Mappers
                 ContractType = employeeDto.ContractType,
                 StartDate = employeeDto.StartDate,
                 EndDate = employeeDto.EndDate,
-                PasswordHash = employeeDto.PasswordHash
+                PasswordHash = employeeDto.PasswordHash ,
+
+
+                BankName = employeeDto.BankName,
+                 AccountType = employeeDto.AccountType,
+                 AccountNumber = employeeDto.BranchCode ,
+
+
+                 QualificationType = employeeDto.QualificationType,
+
+                 YearCompleted = employeeDto.YearCompleted ,
+
+                 Institution =employeeDto.Institution
             };
         }
     }

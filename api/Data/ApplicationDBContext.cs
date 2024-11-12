@@ -17,11 +17,11 @@ namespace api.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<BankingDetail> BankingDetails { get; set; }
+      
         public DbSet<JobGrade> JobGrades { get; set; }
         public DbSet<JobTitle> JobTitles { get; set; }
         public DbSet<LeavePolicy> LeavePolicies { get; set; }
-        public DbSet<Qualification> Qualifications { get; set; }
+      
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ForgotPasswordModel> ForgotPasswordModels { get; set; }
         public DbSet<Login> Logins { get; set; }

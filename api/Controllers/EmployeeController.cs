@@ -52,6 +52,8 @@ public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeD
         (!string.IsNullOrEmpty(employeeDto.PassportNumber) && e.PassportNumber == employeeDto.PassportNumber) ||
         (!string.IsNullOrEmpty(employeeDto.TaxNumber) && e.TaxNumber == employeeDto.TaxNumber) ||
         (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email)
+
+        
     );
 
     if (employeeExists)

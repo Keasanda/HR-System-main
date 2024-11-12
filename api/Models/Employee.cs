@@ -26,6 +26,21 @@ public class Employee
     public DateTime? EndDate { get; set; } // Nullable
     public string Url { get; set; }
     public string PasswordHash { get; set; }
+
+  public string BankName { get; set; } = string.Empty;
+        public string AccountType { get; set; } = string.Empty;
+        public int AccountNumber { get; set; }
+        public int BranchCode { get; set; }
+
+
+        public string QualificationType { get; set; } = string.Empty;
+        public int YearCompleted { get; set; }
+        public string Institution { get; set; } = string.Empty;
+
+
+
+
+
     public string? AppUserId { get; set; }
     public AppUser? AppUser { get; set; }
     public string? RoleId { get; set; } // Nullable  

@@ -27,6 +27,20 @@ namespace api.Dtos.Employee
         public DateTime? EndDate { get; set; } // Nullable
         public string? PasswordHash { get; set; } // Nullable
 
+
+  public string BankName { get; set; } = string.Empty;
+        public string AccountType { get; set; } = string.Empty;
+        public int AccountNumber { get; set; }
+        public int BranchCode { get; set; }
+
+
+        public string QualificationType { get; set; } = string.Empty;
+        public int YearCompleted { get; set; }
+        public string Institution { get; set; } = string.Empty;
+
+
+
+
         public string? RoleId { get; set; } // Nullable
 
 
