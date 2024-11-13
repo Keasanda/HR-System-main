@@ -35,7 +35,7 @@ namespace api.Dtos.Employee
 
 
         public string QualificationType { get; set; } = string.Empty;
-        public int YearCompleted { get; set; }
+        public DateTime YearCompleted { get; set; }
         public string Institution { get; set; } = string.Empty;
 
 

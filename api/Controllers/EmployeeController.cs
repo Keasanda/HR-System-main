@@ -54,6 +54,8 @@ public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeD
         (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email)
 
         
+
+
     );
 
     if (employeeExists)
@@ -115,7 +117,26 @@ public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeD
         Url = employeeDto.Url,
         PasswordHash = employeeDto.PasswordHash,
         AppUserId = user.Id,
-        RoleId = employeeDto.RoleId // Set RoleId here if provided
+        RoleId = employeeDto.RoleId , // Set RoleId here if provided 
+
+
+        BankName = employeeDto.BankName,
+
+        AccountNumber = employeeDto.AccountNumber,
+        AccountType = employeeDto.AccountType ,
+
+        BranchCode = employeeDto.BranchCode,
+
+
+
+
+    QualificationType = employeeDto.QualificationType,
+
+    YearCompleted = employeeDto.YearCompleted ,
+
+    Institution = employeeDto.Institution
+
+
     };
 
     // Add the employee to the context
@@ -154,11 +175,33 @@ public async Task<IActionResult> GetEmployees()
         ContractType = e.ContractType,
         StartDate = e.StartDate,
         EndDate = e.EndDate,
-        Url = e.Url
+        Url = e.Url,
+
+
+            BankName = e.BankName,
+
+        AccountNumber = e.AccountNumber,
+        AccountType = e.AccountType ,
+
+        BranchCode = e.BranchCode,
+
+
+
+
+    QualificationType = e.QualificationType,
+
+    YearCompleted = e.YearCompleted ,
+
+    Institution = e.Institution
+
+
+
+
     }).ToList();
 
     return Ok(employeeDtos);
 }
+
 
 [HttpGet("{id}")]
 public async Task<IActionResult> GetEmployeeById(int id)
@@ -183,7 +226,27 @@ public async Task<IActionResult> GetEmployeeById(int id)
             ContractType = e.ContractType,
             StartDate = e.StartDate,
             EndDate = e.EndDate,
-            Url = e.Url
+            Url = e.Url ,
+
+            BankName = e.BankName,
+
+        AccountNumber = e.AccountNumber,
+        AccountType = e.AccountType ,
+
+        BranchCode = e.BranchCode,
+
+
+
+
+    QualificationType = e.QualificationType,
+
+    YearCompleted = e.YearCompleted ,
+
+    Institution = e.Institution
+
+
+
+
         })
         .FirstOrDefaultAsync();
 
@@ -194,6 +257,8 @@ public async Task<IActionResult> GetEmployeeById(int id)
 
     return Ok(employee);
 }
+
+
 
     [HttpGet("ConfirmEmail")]
     public async Task<IActionResult> ConfirmEmail(string token, string email)

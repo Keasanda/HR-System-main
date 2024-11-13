@@ -245,7 +245,7 @@ namespace api.Migrations
                     AccountNumber = table.Column<int>(type: "int", nullable: false),
                     BranchCode = table.Column<int>(type: "int", nullable: false),
                     QualificationType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearCompleted = table.Column<int>(type: "int", nullable: false),
+                    YearCompleted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Institution = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     RoleId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -322,9 +322,9 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "11f55887-762b-4bb9-999e-a7f64956b891", null, "Admin", "ADMIN" },
-                    { "7d5ff60f-1ba5-4fcc-8856-f9bb3f7791a0", null, "Executive", "Executive" },
-                    { "bbacceff-93cd-478b-b7d5-f13f4ca65c40", null, "Employee", "Employee" }
+                    { "0659496f-a7dc-4308-b103-73063b7174a0", null, "Admin", "ADMIN" },
+                    { "be9126a5-c59a-43bb-adc2-62ea42c420b1", null, "Executive", "Executive" },
+                    { "beecf8b9-2fb6-478f-87f3-dbb68e119fcb", null, "Employee", "Employee" }
                 });
 
             migrationBuilder.CreateIndex(

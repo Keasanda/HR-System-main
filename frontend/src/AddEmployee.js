@@ -38,6 +38,8 @@ const AddEmployee = () => {
       endDate: "",
       url: "",
       passwordHash: "",
+
+   
     };
   });
 
@@ -159,6 +161,20 @@ const AddEmployee = () => {
         endDate: "",
         url: "",
         passwordHash: "",
+
+
+        bankName : "",
+        accountType : "",
+        accountNumber : "" ,
+        branchCode : "" ,
+  
+        qualificationType : "" ,
+  
+        yearCompleted : "" ,
+  
+        institution : ""
+
+
       });
     };
     
@@ -259,6 +275,19 @@ const AddEmployee = () => {
       endDate: "",
       url: "",
       passwordHash: "",
+
+
+      bankName : "",
+      accountType : "",
+      accountNumber : "" ,
+      branchCode : "" ,
+
+      qualificationType : "" ,
+
+      yearCompleted : "" ,
+
+      institution : ""
+
     });
   };
   
@@ -671,14 +700,11 @@ const AddEmployee = () => {
             />
           </div>
 
-          <div className={styles.buttonContainer}>
+         
   <button type="submit" className={styles.submitButton} disabled={loading}>
     {loading ? "Submitting..." : "Save"}
   </button>
-  <button className={styles.nextButton} onClick={() => navigate('/home')}>
-      Next
-    </button>
-</div>
+
 
 
  {/* existing form code... */}

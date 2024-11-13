@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241112103934_Newdatabase")]
+    [Migration("20241113095346_Newdatabase")]
     partial class Newdatabase
     {
         /// <inheritdoc />
@@ -54,19 +54,19 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "11f55887-762b-4bb9-999e-a7f64956b891",
+                            Id = "0659496f-a7dc-4308-b103-73063b7174a0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "bbacceff-93cd-478b-b7d5-f13f4ca65c40",
+                            Id = "beecf8b9-2fb6-478f-87f3-dbb68e119fcb",
                             Name = "Employee",
                             NormalizedName = "Employee"
                         },
                         new
                         {
-                            Id = "7d5ff60f-1ba5-4fcc-8856-f9bb3f7791a0",
+                            Id = "be9126a5-c59a-43bb-adc2-62ea42c420b1",
                             Name = "Executive",
                             NormalizedName = "Executive"
                         });
@@ -342,8 +342,8 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YearCompleted")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("YearCompleted")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("EmployeeId");
 
