@@ -39,7 +39,12 @@ const AddEmployee = () => {
       url: "",
       passwordHash: "",
 
-   
+      qualificationType: localStorage.getItem("qualificationType") || "",
+      yearCompleted: localStorage.getItem("yearCompleted") || "",
+      institution: localStorage.getItem("institution") || "",
+
+
+
     };
   });
 
