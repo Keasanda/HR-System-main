@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EmployeeDetailsCSS from "./EmployeeDetails.module.css";
+
 
 const AddBankingDetail = () => {
   const [bankName, setBankName] = useState(localStorage.getItem('bankName') || '');
@@ -19,87 +19,82 @@ const AddBankingDetail = () => {
       branchCode,
     };
     localStorage.setItem("formData", JSON.stringify(updatedFormData));
-    navigate('/qualifications') ;
+    navigate('/qualifications');
   };
 
   return (
-    <div className={EmployeeDetailsCSS.container}>
-      <h3>Add Banking Details</h3>
-   
-      <form >
-        <div className={EmployeeDetailsCSS.inputGroup}>
-          <label>Bank Name</label>
-          <input
-            type="text"
-            value={bankName}
-            onChange={(e) => {
-              setBankName(e.target.value);
-              localStorage.setItem('bankName', e.target.value);
-            }}
-            className={EmployeeDetailsCSS.inputField}
-            required
-          />
+    <div className="">
+      <form>
+        <h3>Your Banking Details</h3>
+        <div className="">
+          <div className="">
+            <p><strong>Bank Name:</strong></p>
+            <input
+              type="text"
+              value={bankName}
+              onChange={(e) => {
+                setBankName(e.target.value);
+                localStorage.setItem('bankName', e.target.value);
+              }}
+              className=""
+              required
+            />
+          </div>
+
+          <div className="">
+            <p><strong>Account Number:</strong></p>
+            <input
+              type="text"
+              value={accountNumber}
+              onChange={(e) => {
+                setAccountNumber(e.target.value);
+                localStorage.setItem('accountNumber', e.target.value);
+              }}
+              className=""
+              required
+            />
+          </div>
         </div>
 
-        <div className={EmployeeDetailsCSS.inputGroup}>
-          <label>Account Number</label>
-          <input
-            type="text"
-            value={accountNumber}
-            onChange={(e) => {
-              setAccountNumber(e.target.value);
-              localStorage.setItem('accountNumber', e.target.value);
-            }}
-            className={EmployeeDetailsCSS.inputField}
-            required
-          />
+        <div className="">
+          <div className="">
+            <p><strong>Account Type:</strong></p>
+            <input
+              type="text"
+              value={accountType}
+              onChange={(e) => {
+                setAccountType(e.target.value);
+                localStorage.setItem('accountType', e.target.value);
+              }}
+              className=""
+              required
+            />
+          </div>
+
+          <div className="">
+            <p><strong>Branch Code:</strong></p>
+            <input
+              type="text"
+              value={branchCode}
+              onChange={(e) => {
+                setBranchCode(e.target.value);
+                localStorage.setItem('branchCode', e.target.value);
+              }}
+              className=""
+              required
+            />
+          </div>
         </div>
 
-        <div className={EmployeeDetailsCSS.inputGroup}>
-          <label>Account Type</label>
-          <input
-            type="text"
-            value={accountType}
-            onChange={(e) => {
-              setAccountType(e.target.value);
-              localStorage.setItem('accountType', e.target.value);
-            }}
-            className={EmployeeDetailsCSS.inputField}
-            required
-          />
-        </div>
-
-        <div className={EmployeeDetailsCSS.inputGroup}>
-          <label>Branch Code</label>
-          <input
-            type="text"
-            value={branchCode}
-            onChange={(e) => {
-              setBranchCode(e.target.value);
-              localStorage.setItem('branchCode', e.target.value);
-            }}
-            className={EmployeeDetailsCSS.inputField}
-            required
-          />
-        </div>
-
-        <button type="submit" className={EmployeeDetailsCSS.submitButton}>
+        <button type="submit" className="">
           Add Banking Details
         </button>
+
+        <button onClick={handleNext} className="">
+          Back
+        </button>
       </form>
-
-  {/* existing form code... */}
-  <button onClick={handleNext} className={EmployeeDetailsCSS.backButton}>
-        Back
-      </button>
-
-
     </div>
-
-
-    
-
-
   );
 };
 
