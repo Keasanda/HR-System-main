@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import './Qualifications';
+import Sidebar from "./Sidebar";
+import styles from "./AddEmployee.module.css";
+
 
 const Qualifications = () => {
   const [qualificationType, setQualificationType] = useState(localStorage.getItem('qualificationType') || '');
@@ -39,6 +42,14 @@ const Qualifications = () => {
   };
 
   return (
+
+    <>
+    <div className={styles.leftSide}>
+      <div className={styles.sidebar}>
+        <Sidebar />
+      </div>
+    </div>
+
     <div className="form-container">
       <form className="p-4 border rounded">
         <h2 className="mb-4">Qualifications</h2>
@@ -81,6 +92,8 @@ const Qualifications = () => {
         <button type="button" onClick={() => navigate('/add-banking-detail')} className="btn btn-secondary">Back</button>
       </form>
     </div>
+
+    </>
   );
 };
 
