@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import './AddBankingDetail';
 
 const AddBankingDetail = () => {
   const [bankName, setBankName] = useState(localStorage.getItem('bankName') || '');
@@ -23,75 +23,68 @@ const AddBankingDetail = () => {
   };
 
   return (
-    <div className="">
-      <form>
-        <h3>Your Banking Details</h3>
-        <div className="">
-          <div className="">
-            <p><strong>Bank Name:</strong></p>
-            <input
-              type="text"
-              value={bankName}
-              onChange={(e) => {
-                setBankName(e.target.value);
-                localStorage.setItem('bankName', e.target.value);
-              }}
-              className=""
-              required
-            />
-          </div>
-
-          <div className="">
-            <p><strong>Account Number:</strong></p>
-            <input
-              type="text"
-              value={accountNumber}
-              onChange={(e) => {
-                setAccountNumber(e.target.value);
-                localStorage.setItem('accountNumber', e.target.value);
-              }}
-              className=""
-              required
-            />
-          </div>
+    <div className="form-container">
+      <form className="p-4 border rounded">
+        <h3 className="mb-4">Your Banking Details</h3>
+        <div className="mb-3">
+          <label className="form-label"><strong>Bank Name:</strong></label>
+          <input
+            type="text"
+            value={bankName}
+            onChange={(e) => {
+              setBankName(e.target.value);
+              localStorage.setItem('bankName', e.target.value);
+            }}
+            className="form-control"
+            required
+          />
         </div>
 
-        <div className="">
-          <div className="">
-            <p><strong>Account Type:</strong></p>
-            <input
-              type="text"
-              value={accountType}
-              onChange={(e) => {
-                setAccountType(e.target.value);
-                localStorage.setItem('accountType', e.target.value);
-              }}
-              className=""
-              required
-            />
-          </div>
-
-          <div className="">
-            <p><strong>Branch Code:</strong></p>
-            <input
-              type="text"
-              value={branchCode}
-              onChange={(e) => {
-                setBranchCode(e.target.value);
-                localStorage.setItem('branchCode', e.target.value);
-              }}
-              className=""
-              required
-            />
-          </div>
+        <div className="mb-3">
+          <label className="form-label"><strong>Account Number:</strong></label>
+          <input
+            type="text"
+            value={accountNumber}
+            onChange={(e) => {
+              setAccountNumber(e.target.value);
+              localStorage.setItem('accountNumber', e.target.value);
+            }}
+            className="form-control"
+            required
+          />
         </div>
 
-        <button type="submit" className="">
-          Add Banking Details
-        </button>
+        <div className="mb-3">
+          <label className="form-label"><strong>Account Type:</strong></label>
+          <input
+            type="text"
+            value={accountType}
+            onChange={(e) => {
+              setAccountType(e.target.value);
+              localStorage.setItem('accountType', e.target.value);
+            }}
+            className="form-control"
+            required
+          />
+        </div>
 
-        <button onClick={handleNext} className="">
-          Back
+        <div className="mb-4">
+          <label className="form-label"><strong>Branch Code:</strong></label>
+          <input
+            type="text"
+            value={branchCode}
+            onChange={(e) => {
+              setBranchCode(e.target.value);
+              localStorage.setItem('branchCode', e.target.value);
+            }}
+            className="form-control"
+            required
+          />
+        </div>
+
+        <button type="button" onClick={() => navigate('/add-employee')} className="btn btn-Danger">Back</button>
+        <button type="button" onClick={handleNext} className="btn btn-secondary">
+          Next
         </button>
       </form>
     </div>

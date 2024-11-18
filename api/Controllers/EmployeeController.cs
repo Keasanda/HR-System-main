@@ -46,22 +46,20 @@ public class EmployeeController : ControllerBase
 [HttpPost]
 public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeDto)
 {
-    // Check if any of the unique fields (IdentityNumber, PassportNumber, TaxNumber, Email) already exists in the database
-    bool employeeExists = await _context.Employees.AnyAsync(e =>
-        (!string.IsNullOrEmpty(employeeDto.IdentityNumber) && e.IdentityNumber == employeeDto.IdentityNumber) ||
-        (!string.IsNullOrEmpty(employeeDto.PassportNumber) && e.PassportNumber == employeeDto.PassportNumber) ||
-        (!string.IsNullOrEmpty(employeeDto.TaxNumber) && e.TaxNumber == employeeDto.TaxNumber) ||
-        (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email)
+// Check if any of the unique fields (IdentityNumber, PassportNumber, TaxNumber, Email, AccountNumber) already exists in the database
+bool employeeExists = await _context.Employees.AnyAsync(e =>
+    (!string.IsNullOrEmpty(employeeDto.IdentityNumber) && e.IdentityNumber == employeeDto.IdentityNumber) ||
+    (!string.IsNullOrEmpty(employeeDto.PassportNumber) && e.PassportNumber == employeeDto.PassportNumber) ||
+    (!string.IsNullOrEmpty(employeeDto.TaxNumber) && e.TaxNumber == employeeDto.TaxNumber) ||
+    (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email) ||
+    (employeeDto.AccountNumber != 0 && e.AccountNumber == employeeDto.AccountNumber) // Check for non-zero AccountNumber
+);
 
-        
+if (employeeExists)
+{
+    return Conflict("An employee with the same Identity Number, Passport Number, Tax Number, Email, or Account Number already exists.");
+}
 
-
-    );
-
-    if (employeeExists)
-    {
-        return Conflict("An employee with the same Identity Number, Passport Number, Tax Number, or Email already exists.");
-    }
 
     // Step 1: Create a new AppUser record
     var user = new AppUser
