@@ -6,6 +6,9 @@ import Sidebar from "./Sidebar";
 import BankingDetail from "./BankingDetail";
 import Qualifications from "./Qualifications";
 import JobTitle from "./JobTitle";
+import "./EmployeeDetails.css"; // Custom CSS file for additional styling
+
+
 
 const EmployeeDetails = () => {
   const { id } = useParams();
@@ -84,221 +87,339 @@ const EmployeeDetails = () => {
   if (!employee) return null;
 
   return (
-    <div className={EmployeeDetailsCSS.container}>
+    <div >
+
+
+      
       <div className={EmployeeDetailsCSS.leftSide}>
         <div className={EmployeeDetailsCSS.sidebar}>
           <Sidebar />
         </div>
       </div>
 
-      <div className={EmployeeDetailsCSS.content}>
-        <div className={EmployeeDetailsCSS.profileHeader}>
-          {/* Profile Picture and Basic Info */}
-          <div className={EmployeeDetailsCSS.profileInfo}>
-            <div className={EmployeeDetailsCSS.profilePicture}>
-              <img
-                src={employee.url}
-                alt={`${employee.name} ${employee.surname}`}
-                className={EmployeeDetailsCSS.employeeImage}
-              />
-            </div>
-            <div>
-              <h2>
-                {employee.name} {employee.surname}
-              </h2>
-              <p>{employee.position || "Position Not Available"}</p>
-              <p>{employee.level || "Level Not Available"}</p>
-            </div>
-          </div>
+      <div className="employee-details-container">
+      <div className="profile-header">
+        <div className="profile-info">
+          <img
+            src="https://via.placeholder.com/100" // Replace with actual image URL
+            alt="Profile"
+            className="profile-pic"
+          />
+          <div className="profile-details">
+            <h2> <input
+                      value={employee.name}  
+                      className={EmployeeDetailsCSS.inputField}
+                      readOnly
+                    />  
+                    
+                  
+                    
+                    
+                    </h2>
+            <p>UI/UX Design Team</p>
+            <p>Web Designer</p>
+            <p>
+              <strong>Employee ID:</strong> FT-0001
+            </p>
+            
+            <br></br>
 
-          {/* Tabs */}
-          <div className={EmployeeDetailsCSS.tabs}>
-            <button onClick={() => setActiveTab("profile")}>
-              Profile Info
-            </button>
-            <button onClick={() => setActiveTab("banking")}>
-              Banking Details
-            </button>
-            <button onClick={() => setActiveTab("qualifications")}>
-              Qualifications
-            </button>
-            <button onClick={() => setActiveTab("jobTitle")}>Job Title</button>
-            <button onClick={() => setActiveTab("reports")}>Reports</button>
+            <p> Employee start date  :   <input
+                      value={employee.startDate}
+                      className={EmployeeDetailsCSS.inputField}
+                      readOnly
+                    />  </p> 
+          
+          <p>Position</p>
+
+          <p>Team</p>
           </div>
         </div>
 
-        <div className={EmployeeDetailsCSS.details}>
-          {activeTab === "banking" && (
-            <BankingDetail
-              appUserId={employee.appUserId}
-              onSuccess={handleBankingDetailsSuccess}
-            />
-          )}
-          {activeTab === "qualifications" && (
-            <Qualifications
-              appUserId={employee.appUserId}
-              onSuccess={handleQualificationsSuccess}
-            />
-          )}
-          {activeTab === "jobTitle" && (
-            <JobTitle
-              appUserId={employee.appUserId}
-              onSuccess={handleJobTitleSuccess}
-            />
-          )}
+        
+ 
+
+    
+
+
+
 
           {activeTab === "profile" && (
             <>
               {/* Basic Details */}
               <div className={EmployeeDetailsCSS.section}>
-                <h3>Basic Details</h3>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Date of Birth:</strong>
-                    </p>
-                    <input
-                      value={new Date(
-                        employee.dateOfBirth
-                      ).toLocaleDateString()}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Gender:</strong>
-                    </p>
-                    <input
-                      value={employee.gender}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Marital Status:</strong>
-                    </p>
-                    <input
-                      value={employee.maritalStatus}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Email:</strong>
-                    </p>
-                    <input
-                      value={employee.email}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Identity Number:</strong>
-                    </p>
-                    <input
-                      value={employee.identityNumber}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-              </div>
+  <h3>Basic Details</h3>
+  <div className="details-grid">
+    
+      <p>Date of Birth:</p>
+      <input
+        value={new Date(employee.dateOfBirth).toLocaleDateString()}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+   
+   
+      <p>Gender:</p>
+      <input
+        value={employee.gender}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
 
-              {/* Employment Details */}
-              <div className={EmployeeDetailsCSS.section}>
-                <h3>Employment Details</h3>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Contract Type:</strong>
-                    </p>
-                    <input
-                      value={employee.contractType}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Start Date:</strong>
-                    </p>
-                    <input
-                      value={employee.startDate}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>End Date:</strong>
-                    </p>
-                    <input
-                      value={employee.endDate}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Tax Number:</strong>
-                    </p>
-                    <input
-                      value={employee.taxNumber}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Salary:</strong>
-                    </p>
-                    <input
-                      value={employee.salary}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Physical Address:</strong>
-                    </p>
-                    <input
-                      value={employee.physicalAddress}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-                <div className={EmployeeDetailsCSS.row}>
-                  <div className={EmployeeDetailsCSS.inputGroup}>
-                    <p>
-                      <strong>Postal Address:</strong>
-                    </p>
-                    <input
-                      value={employee.postalAddress}
-                      className={EmployeeDetailsCSS.inputField}
-                      readOnly
-                    />
-                  </div>
-                </div>
-              </div>
+      <p>Marital Status:</p>
+      <input
+        value={employee.maritalStatus}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+ 
+      <p>Email:</p>
+      <input
+        value={employee.email}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+    
+      <p>Identity Number:</p>
+      <input
+        value={employee.identityNumber}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
             </>
           )}
         </div>
+
+
+        
       </div>
+
+
+
+      
+  
+
+      <div className="employee-details-container">
+      <div className="profile-header">
+       
+     
+        <div className="details-grid">
+      
+    <p>Date of Birth:</p>
+    <input
+      value={new Date(employee.dateOfBirth).toLocaleDateString()}
+      className={EmployeeDetailsCSS.inputField}
+      readOnly
+    />
+ 
+ 
+    <p>Gender:</p>
+    <input
+      value={employee.gender}
+      className={EmployeeDetailsCSS.inputField}
+      readOnly
+    />
+
+    <p>Marital Status:</p>
+    <input
+      value={employee.maritalStatus}
+      className={EmployeeDetailsCSS.inputField}
+      readOnly
+    />
+
+    <p>Email:</p>
+    <input
+      value={employee.email}
+      className={EmployeeDetailsCSS.inputField}
+      readOnly
+    />
+  
+    <p>Identity Number:</p>
+    <input
+      value={employee.identityNumber}
+      className={EmployeeDetailsCSS.inputField}
+      readOnly
+    />
+
+</div>
+       
+
+    
+ 
+
+    
+
+
+
+
+          {activeTab === "profile" && (
+            <>
+              {/* Basic Details */}
+              <div className={EmployeeDetailsCSS.section}>
+  <h3>Basic Details</h3>
+  <div className="details-grid">
+    
+      <p>Date of Birth:</p>
+      <input
+        value={new Date(employee.dateOfBirth).toLocaleDateString()}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+   
+   
+      <p>Gender:</p>
+      <input
+        value={employee.gender}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+
+      <p>Marital Status:</p>
+      <input
+        value={employee.maritalStatus}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+ 
+      <p>Email:</p>
+      <input
+        value={employee.email}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+    
+      <p>Identity Number:</p>
+      <input
+        value={employee.identityNumber}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+            </>
+          )}
+        </div>
+
+
+        
+      </div>
+
+
+
+
+
+      <div className="employee-details-container">
+      <div className="profile-header">
+    
+
+
+          {activeTab === "profile" && (
+            <>
+              {/* Basic Details */}
+              <div className={EmployeeDetailsCSS.section}>
+  <h3>Basic Details</h3>
+  <div className="details-grid">
+    
+      <p>Date of Birth:</p>
+      <input
+        value={new Date(employee.dateOfBirth).toLocaleDateString()}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+   
+   
+      <p>Gender:</p>
+      <input
+        value={employee.gender}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+
+      <p>Marital Status:</p>
+      <input
+        value={employee.maritalStatus}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+ 
+      <p>Email:</p>
+      <input
+        value={employee.email}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+    
+      <p>Identity Number:</p>
+      <input
+        value={employee.identityNumber}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+            </>
+          )}
+        </div>
+
+
+        
+      </div>
+
+
+
+
+
+
+
+
     </div>
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
   );
 };
 
