@@ -77,6 +77,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Two columns */
     gap: 20px; /* Space between items */
+
+
 }
 
 .details-grid .inputGroup {
@@ -105,4 +107,8 @@
     border-radius: 8px;
     margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  input{
+
   }

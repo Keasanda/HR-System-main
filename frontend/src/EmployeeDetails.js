@@ -118,9 +118,12 @@ const EmployeeDetails = () => {
                     </h2>
             <p>UI/UX Design Team</p>
             <p>Web Designer</p>
-            <p>
-              <strong>Employee ID:</strong> FT-0001
-            </p>
+          
+            <p> Employee ID :   <input
+                      value={employee.employeeId}
+                      className={EmployeeDetailsCSS.inputField}
+                      readOnly
+                    />  </p> 
             
             <br></br>
 
@@ -129,6 +132,7 @@ const EmployeeDetails = () => {
                       className={EmployeeDetailsCSS.inputField}
                       readOnly
                     />  </p> 
+          
           
           <p>Position</p>
 
@@ -166,6 +170,7 @@ const EmployeeDetails = () => {
         readOnly
       />
 
+
       <p>Marital Status:</p>
       <input
         value={employee.maritalStatus}
@@ -186,7 +191,8 @@ const EmployeeDetails = () => {
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
-  
+
+
   </div>
 </div>
 
@@ -217,20 +223,10 @@ const EmployeeDetails = () => {
      
         <div className="details-grid">
       
-    <p>Date of Birth:</p>
-    <input
-      value={new Date(employee.dateOfBirth).toLocaleDateString()}
-      className={EmployeeDetailsCSS.inputField}
-      readOnly
-    />
+  
  
  
-    <p>Gender:</p>
-    <input
-      value={employee.gender}
-      className={EmployeeDetailsCSS.inputField}
-      readOnly
-    />
+ 
 
     <p>Marital Status:</p>
     <input
@@ -239,19 +235,34 @@ const EmployeeDetails = () => {
       readOnly
     />
 
-    <p>Email:</p>
-    <input
-      value={employee.email}
-      className={EmployeeDetailsCSS.inputField}
-      readOnly
-    />
-  
-    <p>Identity Number:</p>
-    <input
-      value={employee.identityNumber}
-      className={EmployeeDetailsCSS.inputField}
-      readOnly
-    />
+
+
+<p>Address:</p>
+      <input
+        value={employee.physicalAddress}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+
+
+
+
+
+<p>Employment Status:</p>
+      <input
+        value={employee.contractType}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+
+
+<p>Tax :</p>
+      <input
+        value={employee.taxNumber}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+
 
 </div>
        
@@ -267,48 +278,37 @@ const EmployeeDetails = () => {
           {activeTab === "profile" && (
             <>
               {/* Basic Details */}
-              <div className={EmployeeDetailsCSS.section}>
-  <h3>Basic Details</h3>
-  <div className="details-grid">
-    
-      <p>Date of Birth:</p>
-      <input
-        value={new Date(employee.dateOfBirth).toLocaleDateString()}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-   
-   
-      <p>Gender:</p>
-      <input
-        value={employee.gender}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-
-      <p>Marital Status:</p>
-      <input
-        value={employee.maritalStatus}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
+             
  
-      <p>Email:</p>
+  
+  <div className="details-grid">
+      
+      <p>Qualification Type:</p>
       <input
-        value={employee.email}
+        value={employee.qualificationType}
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
-    
-      <p>Identity Number:</p>
+   
+   
+      <p>Year Completed:</p>
       <input
-        value={employee.identityNumber}
+        value={employee.yearCompleted}
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
   
+      <p>Institution :</p>
+      <input
+        value={employee.institution}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+  
+  
   </div>
-</div>
+
+
 
 
 
@@ -337,49 +337,43 @@ const EmployeeDetails = () => {
 
           {activeTab === "profile" && (
             <>
-              {/* Basic Details */}
-              <div className={EmployeeDetailsCSS.section}>
-  <h3>Basic Details</h3>
+         
+  
   <div className="details-grid">
-    
-      <p>Date of Birth:</p>
-      <input
-        value={new Date(employee.dateOfBirth).toLocaleDateString()}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-   
-   
-      <p>Gender:</p>
-      <input
-        value={employee.gender}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
+      
 
-      <p>Marital Status:</p>
+   
+      <p>Bank Name:</p>
       <input
-        value={employee.maritalStatus}
+        value={employee.bankName}
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
- 
-      <p>Email:</p>
+  
+      <p>Account type:</p>
       <input
-        value={employee.email}
+        value={employee.accountType}
+        className={EmployeeDetailsCSS.inputField}
+        readOnly
+      />
+  
+      <p>Account Number</p>
+      <input
+        value={employee.accountNumber}
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
     
-      <p>Identity Number:</p>
+      <p>Branch Code:</p>
       <input
-        value={employee.identityNumber}
+        value={employee.branchCode}
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
   
   </div>
-</div>
+
+
 
 
 
