@@ -32,13 +32,13 @@ const AddBankingDetail = () => {
         </div>
       </div>
 
-      <div className=" justify-content-end form-container">
+      <div className="justify-content-end form-container">
         <form className="p-4 border rounded bg-light">
           <h3 className="mb-4">Your Banking Details</h3>
+
           <div className="mb-3">
             <label className="form-label"><strong>Bank Name:</strong></label>
-            <input
-              type="text"
+            <select
               value={bankName}
               onChange={(e) => {
                 setBankName(e.target.value);
@@ -46,7 +46,15 @@ const AddBankingDetail = () => {
               }}
               className="form-control"
               required
-            />
+            >
+              <option value="" disabled>Select your bank</option>
+              <option value="ABSA">ABSA</option>
+              <option value="FNB">FNB</option>
+              <option value="Standard Bank">Standard Bank</option>
+              <option value="Nedbank">Nedbank</option>
+              <option value="Capitec">Capitec</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
 
           <div className="mb-3">
@@ -65,8 +73,7 @@ const AddBankingDetail = () => {
 
           <div className="mb-3">
             <label className="form-label"><strong>Account Type:</strong></label>
-            <input
-              type="text"
+            <select
               value={accountType}
               onChange={(e) => {
                 setAccountType(e.target.value);
@@ -74,7 +81,13 @@ const AddBankingDetail = () => {
               }}
               className="form-control"
               required
-            />
+            >
+              <option value="" disabled>Select account type</option>
+              <option value="Savings">Savings</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Current">Current</option>
+              <option value="Fixed Deposit">Fixed Deposit</option>
+            </select>
           </div>
 
           <div className="mb-4">

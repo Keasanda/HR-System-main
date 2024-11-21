@@ -100,14 +100,17 @@ const EmployeeDetails = () => {
       <div className="employee-details-container">
       <div className="profile-header">
         <div className="profile-info">
-          <img
-            src="https://via.placeholder.com/100" // Replace with actual image URL
-            alt="Profile"
-            className="profile-pic"
-          />
+
+        <img
+    src={employee.URL || "https://via.placeholder.com/100"} // Use actual image URL from DB, fallback to placeholder
+    alt="Profile"
+    className="profile-pic"
+  />
+
+          
           <div className="profile-details">
             <h2> <input
-                      value={employee.name}  
+                      value={`${employee.name || ''} ${employee.surname || ''}`.trim()}
                       className={EmployeeDetailsCSS.inputField}
                       readOnly
                     />  
@@ -116,8 +119,7 @@ const EmployeeDetails = () => {
                     
                     
                     </h2>
-            <p>UI/UX Design Team</p>
-            <p>Web Designer</p>
+    
           
             <p> Employee ID :   <input
                       value={employee.employeeId}
@@ -128,15 +130,13 @@ const EmployeeDetails = () => {
             <br></br>
 
             <p> Employee start date  :   <input
-                      value={employee.startDate}
+                      value={new Date(employee.startDate).toLocaleDateString()}
                       className={EmployeeDetailsCSS.inputField}
                       readOnly
                     />  </p> 
           
           
-          <p>Position</p>
-
-          <p>Team</p>
+       
           </div>
         </div>
 
@@ -221,12 +221,13 @@ const EmployeeDetails = () => {
       <div className="profile-header">
        
      
+     
         <div className="details-grid">
       
-  
+        <h2>Personal  deatils </h2>
  
  
- 
+ <br></br>
 
     <p>Marital Status:</p>
     <input
@@ -264,6 +265,14 @@ const EmployeeDetails = () => {
       />
 
 
+<p>Salary:</p>
+<input
+  value={employee.salary.toFixed(2)} // Formats the salary to 2 decimal points
+  className={EmployeeDetailsCSS.inputField}
+  readOnly
+/>
+
+
 </div>
        
 
@@ -283,6 +292,9 @@ const EmployeeDetails = () => {
   
   <div className="details-grid">
       
+      <h2>Qualification Details </h2>
+
+      <br></br>
       <p>Qualification Type:</p>
       <input
         value={employee.qualificationType}
@@ -293,7 +305,7 @@ const EmployeeDetails = () => {
    
       <p>Year Completed:</p>
       <input
-        value={employee.yearCompleted}
+        value={new Date(employee.yearCompleted).toLocaleDateString()}
         className={EmployeeDetailsCSS.inputField}
         readOnly
       />
@@ -329,68 +341,48 @@ const EmployeeDetails = () => {
 
 
 
-
       <div className="employee-details-container">
-      <div className="profile-header">
-    
+  <div className="profile-header">
 
 
-          {activeTab === "profile" && (
-            <>
-         
-  
-  <div className="details-grid">
-      
+    {activeTab === "profile" && (
+      <>
+        <div className="details-grid">
 
-   
-      <p>Bank Name:</p>
-      <input
-        value={employee.bankName}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-  
-      <p>Account type:</p>
-      <input
-        value={employee.accountType}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-  
-      <p>Account Number</p>
-      <input
-        value={employee.accountNumber}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-    
-      <p>Branch Code:</p>
-      <input
-        value={employee.branchCode}
-        className={EmployeeDetailsCSS.inputField}
-        readOnly
-      />
-  
-  </div>
+        <h2 className="profile-header-title">Employee Banking Details</h2> 
+        <br></br>
+          <p>Bank Name:</p>
+          <input
+            value={employee.bankName}
+            className={EmployeeDetailsCSS.inputField}
+            readOnly
+          />
 
+          <p>Account Type:</p>
+          <input
+            value={employee.accountType}
+            className={EmployeeDetailsCSS.inputField}
+            readOnly
+          />
 
+          <p>Account Number:</p>
+          <input
+            value={employee.accountNumber}
+            className={EmployeeDetailsCSS.inputField}
+            readOnly
+          />
 
-
-
-
-
-
-
-
-
-            </>
-          )}
+          <p>Branch Code:</p>
+          <input
+            value={employee.branchCode}
+            className={EmployeeDetailsCSS.inputField}
+            readOnly
+          />
         </div>
-
-
-        
-      </div>
-
+      </>
+    )}
+  </div>
+</div>
 
 
 
