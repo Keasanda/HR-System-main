@@ -42,107 +42,90 @@ public class EmployeeController : ControllerBase
         _emailSender = emailSender;
     }
   
-
 [HttpPost]
-public async Task<IActionResult> CreateEmployee([FromBody] EmployeeDto employeeDto)
+public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequestDto employeeDto)
 {
-// Check if any of the unique fields (IdentityNumber, PassportNumber, TaxNumber, Email, AccountNumber) already exists in the database
-bool employeeExists = await _context.Employees.AnyAsync(e =>
-    (!string.IsNullOrEmpty(employeeDto.IdentityNumber) && e.IdentityNumber == employeeDto.IdentityNumber) ||
-    (!string.IsNullOrEmpty(employeeDto.PassportNumber) && e.PassportNumber == employeeDto.PassportNumber) ||
-    (!string.IsNullOrEmpty(employeeDto.TaxNumber) && e.TaxNumber == employeeDto.TaxNumber) ||
-    (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email) ||
-    (employeeDto.AccountNumber != 0 && e.AccountNumber == employeeDto.AccountNumber) // Check for non-zero AccountNumber
-);
-
-if (employeeExists)
-{
-    return Conflict("An employee with the same Identity Number, Passport Number, Tax Number, Email, or Account Number already exists.");
-}
-
-
-    // Step 1: Create a new AppUser record
-    var user = new AppUser
+    if (employeeDto == null)
     {
-        UserName = employeeDto.Email,
-        Email = employeeDto.Email,
-        EmailConfirmed = false
-    };
-
-    // Create user and set password
-    var result = await _userManager.CreateAsync(user, employeeDto.PasswordHash);
-    if (!result.Succeeded)
-    {
-        return BadRequest(result.Errors);
+        return BadRequest("Invalid data.");
     }
 
-    // Step 2: Assign Role if RoleId is provided
-    if (!string.IsNullOrEmpty(employeeDto.RoleId))
+    // Check if the employee already exists (existing logic)
+    bool employeeExists = await _context.Employees.AnyAsync(e =>
+        (!string.IsNullOrEmpty(employeeDto.IdentityNumber) && e.IdentityNumber == employeeDto.IdentityNumber) ||
+        (!string.IsNullOrEmpty(employeeDto.PassportNumber) && e.PassportNumber == employeeDto.PassportNumber) ||
+        (!string.IsNullOrEmpty(employeeDto.TaxNumber) && e.TaxNumber == employeeDto.TaxNumber) ||
+        (!string.IsNullOrEmpty(employeeDto.Email) && e.Email == employeeDto.Email) ||
+        (employeeDto.AccountNumber != 0 && e.AccountNumber == employeeDto.AccountNumber)
+    );
+
+    if (employeeExists)
     {
-        var role = await _context.Roles.FindAsync(employeeDto.RoleId);
-        if (role != null)
+        return Conflict("An employee with the same Identity Number, Passport Number, Tax Number, Email, or Account Number already exists.");
+    }
+
+    using (var transaction = await _context.Database.BeginTransactionAsync())
+    {
+        try
         {
-            await _userManager.AddToRoleAsync(user, role.Name);
+            // Step 1: Create the employee
+            var employee = new Employee
+            {
+                Name = employeeDto.Name,
+                Surname = employeeDto.Surname,
+                Email = employeeDto.Email,
+                IdentityNumber = employeeDto.IdentityNumber,
+                PassportNumber = employeeDto.PassportNumber,
+                DateOfBirth = employeeDto.DateOfBirth,
+                Gender = employeeDto.Gender,
+                TaxNumber = employeeDto.TaxNumber,
+                MaritalStatus = employeeDto.MaritalStatus,
+                PhysicalAddress = employeeDto.PhysicalAddress,
+                PostalAddress = employeeDto.PostalAddress,
+                Salary = employeeDto.Salary,
+                ContractType = employeeDto.ContractType,
+                StartDate = employeeDto.StartDate,
+                EndDate = employeeDto.EndDate,
+                Url = employeeDto.Url,
+                PasswordHash = employeeDto.PasswordHash,
+                BankName = employeeDto.BankName,
+                AccountNumber = employeeDto.AccountNumber,
+                AccountType = employeeDto.AccountType,
+                BranchCode = employeeDto.BranchCode,
+                QualificationType = employeeDto.QualificationType,
+                YearCompleted = employeeDto.YearCompleted,
+                Institution = employeeDto.Institution,
+                RoleId = employeeDto.RoleId
+            };
+
+            _context.Employees.Add(employee);
+            await _context.SaveChangesAsync();
+
+            // Step 2: Create the position linked to the employee
+            var position = new Position
+            {
+                EmployeeId = employee.EmployeeId, // Link to Employee
+                JobLevel = employeeDto.JobLevel,
+                AnnualLeaveDays = employeeDto.AnnualLeaveDays,
+                SickLeaveDays = employeeDto.SickLeaveDays
+            };
+
+            _context.Positions.Add(position);
+            await _context.SaveChangesAsync();
+
+            await transaction.CommitAsync();
+
+            return Ok(new { Message = "Employee and position created successfully." });
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            return StatusCode(500, $"An error occurred: {ex.Message}");
         }
     }
-
-    // Step 3: Generate an email confirmation token
-    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-    var confirmationLink = Url.Action(nameof(ConfirmEmail), "Employee", new { token, email = user.Email }, Request.Scheme);
-
-    // Step 4: Send confirmation email
-    var emailBody = $"Please confirm your account by clicking this link: {confirmationLink}<br/>";
-    await _emailSender.SendEmailAsync(user.Email, "Confirm your email and set your password", emailBody);
-
-    // Step 5: Create an employee record and link to the created AppUser
-    var employee = new Employee
-    {
-        Name = employeeDto.Name,
-        Surname = employeeDto.Surname,
-        Email = employeeDto.Email,
-        IdentityNumber = employeeDto.IdentityNumber,
-        PassportNumber = employeeDto.PassportNumber,
-        DateOfBirth = employeeDto.DateOfBirth,
-        Gender = employeeDto.Gender,
-        TaxNumber = employeeDto.TaxNumber,
-        MaritalStatus = employeeDto.MaritalStatus,
-        PhysicalAddress = employeeDto.PhysicalAddress,
-        PostalAddress = employeeDto.PostalAddress,
-        Salary = employeeDto.Salary,
-        ContractType = employeeDto.ContractType,
-        StartDate = employeeDto.StartDate,
-        EndDate = employeeDto.EndDate,
-        Url = employeeDto.Url,
-        PasswordHash = employeeDto.PasswordHash,
-        AppUserId = user.Id,
-        RoleId = employeeDto.RoleId , // Set RoleId here if provided 
-
-
-        BankName = employeeDto.BankName,
-
-        AccountNumber = employeeDto.AccountNumber,
-        AccountType = employeeDto.AccountType ,
-
-        BranchCode = employeeDto.BranchCode,
-
-
-
-
-    QualificationType = employeeDto.QualificationType,
-
-    YearCompleted = employeeDto.YearCompleted ,
-
-    Institution = employeeDto.Institution
-
-
-    };
-
-    // Add the employee to the context
-    _context.Employees.Add(employee);
-    await _context.SaveChangesAsync();
-
-    return Ok(new { Message = "User and employee created successfully." });
 }
+
+
 
 
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import Sidebar from "./Sidebar";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const JobTitle = () => {
@@ -10,9 +9,16 @@ const JobTitle = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [leaveDays, setLeaveDays] = useState({ annualLeave: 0, sickLeave: 0 });
-  const [formData, setFormData] = useState({
-    maritalStatus: "",
-    contractType: "",
+
+  const [formData, setFormData] = useState(() => {
+    // Retrieve position data from localStorage on mount
+    const storedData = JSON.parse(localStorage.getItem("positionData")) || {};
+    return {
+      maritalStatus: storedData.maritalStatus || "",
+      contractType: storedData.contractType || "",
+      annualLeaveDays: storedData.annualLeaveDays || 0,
+      sickLeaveDays: storedData.sickLeaveDays || 0,
+    };
   });
 
   const leavePolicies = {
@@ -34,40 +40,60 @@ const JobTitle = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => {
+      const updatedData = { ...prevData, [name]: value };
+
+      // Update leave days if contractType changes
+      if (name === "contractType") {
+        const leave = getLeaveDays(value);
+        updatedData.annualLeaveDays = leave.annualLeave;
+        updatedData.sickLeaveDays = leave.sickLeave;
+      }
+
+      return updatedData;
+    });
+  };
+
+  const handleSaveAndNext = () => {
+    // Save position data to localStorage
+    localStorage.setItem("positionData", JSON.stringify(formData));
+    // Navigate to the next page
+    navigate("/review-and-submit");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    const errors = [];
 
     // Validation logic (if any)
-
-    if (Object.keys(errors).length > 0) {
+    if (!formData.maritalStatus || !formData.contractType) {
+      setErrorMessages(["Please fill in all fields."]);
       setLoading(false);
-      setErrorMessages(errors);
       return;
     }
 
     setErrorMessages([]);
     setLoading(false);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-    if (name === "contractType") {
-      const leave = getLeaveDays(value);
-      setLeaveDays(leave);
-    }
+    handleSaveAndNext();
   };
 
   return (
-    <div className=" ">
+    <div className="d-flex">
       <Sidebar />
       <div className="container my-5" style={{ marginLeft: "20%" }}>
         <h2 className="mb-4">Job Information</h2>
         <form onSubmit={handleSubmit}>
           {successMessage && (
             <div className="alert alert-success">{successMessage}</div>
+          )}
+          {errorMessages.length > 0 && (
+            <div className="alert alert-danger">
+              {errorMessages.map((error, index) => (
+                <p key={index}>{error}</p>
+              ))}
+            </div>
           )}
           <div className="mb-4">
             <label htmlFor="maritalStatus" className="form-label">
@@ -122,8 +148,12 @@ const JobTitle = () => {
             </div>
           )}
 
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? "Loading..." : "Submit"}
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={loading}
+          >
+            {loading ? "Saving..." : "Next"}
           </button>
         </form>
       </div>

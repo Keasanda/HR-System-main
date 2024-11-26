@@ -17,7 +17,7 @@ namespace api.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
-      
+      public DbSet<Position> Positions {get;set;}
         public DbSet<JobGrade> JobGrades { get; set; }
         public DbSet<JobTitle> JobTitles { get; set; }
         public DbSet<LeavePolicy> LeavePolicies { get; set; }
@@ -53,6 +53,14 @@ namespace api.Data
         .HasOne(i => i.AppUser)
         .WithMany(u => u.Employees)
         .HasForeignKey(i => i.AppUserId);
+
+       builder.Entity<Position>()
+        .HasOne(p => p.Employee)
+        .WithOne()
+        .HasForeignKey<Position>(p => p.EmployeeId);
+
+
+
 
     // Seed roles
     List<IdentityRole> roles = new List<IdentityRole>

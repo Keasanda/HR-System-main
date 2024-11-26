@@ -44,5 +44,11 @@ namespace api.Dtos.Employee
         public string? RoleId { get; set; } // Nullable
 
 
+ public string JobLevel { get; set; } = string.Empty;
+    public int AnnualLeaveDays { get; set; }
+    public int SickLeaveDays { get; set; }
+
+
+
     }
 }

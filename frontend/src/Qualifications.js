@@ -89,7 +89,7 @@ const Qualifications = () => {
         </div>
 
         <button type="button" onClick={handleSubmit} className="btn btn-primary me-2">Home</button>
-        <button type="button" onClick={() => navigate('/add-banking-detail')} className="btn btn-secondary">Back</button>
+        <button type="button" onClick={() => navigate('/job-title')} className="btn btn-secondary">next</button>
       </form>
     </div>
 
