@@ -280,6 +280,28 @@ namespace api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Positions",
+                columns: table => new
+                {
+                    PositionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    JobLevel = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnnualLeaveDays = table.Column<int>(type: "int", nullable: false),
+                    SickLeaveDays = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Positions", x => x.PositionID);
+                    table.ForeignKey(
+                        name: "FK_Positions_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "JobGrades",
                 columns: table => new
                 {
@@ -322,9 +344,9 @@ namespace api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0659496f-a7dc-4308-b103-73063b7174a0", null, "Admin", "ADMIN" },
-                    { "be9126a5-c59a-43bb-adc2-62ea42c420b1", null, "Executive", "Executive" },
-                    { "beecf8b9-2fb6-478f-87f3-dbb68e119fcb", null, "Employee", "Employee" }
+                    { "37a45ad7-a225-4b16-b834-8627e1d2b10f", null, "Employee", "Employee" },
+                    { "5ea8c753-1d00-4b67-a3ae-361ffc416a27", null, "Executive", "Executive" },
+                    { "dcc71578-5059-4332-aaaf-42cfd7c576e1", null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -385,6 +407,12 @@ namespace api.Migrations
                 name: "IX_LeavePolicies_JobGradeId",
                 table: "LeavePolicies",
                 column: "JobGradeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Positions_EmployeeId",
+                table: "Positions",
+                column: "EmployeeId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -413,6 +441,9 @@ namespace api.Migrations
 
             migrationBuilder.DropTable(
                 name: "Logins");
+
+            migrationBuilder.DropTable(
+                name: "Positions");
 
             migrationBuilder.DropTable(
                 name: "ResetPasswordModels");

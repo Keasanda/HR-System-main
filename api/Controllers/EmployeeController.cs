@@ -87,7 +87,7 @@ public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeRequest
                 StartDate = employeeDto.StartDate,
                 EndDate = employeeDto.EndDate,
                 Url = employeeDto.Url,
-                PasswordHash = employeeDto.PasswordHash,
+                PasswordHash = employeeDto.PasswordHash, 
                 BankName = employeeDto.BankName,
                 AccountNumber = employeeDto.AccountNumber,
                 AccountType = employeeDto.AccountType,

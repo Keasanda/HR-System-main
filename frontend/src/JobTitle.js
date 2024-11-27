@@ -16,8 +16,8 @@ const JobTitle = () => {
     return {
       maritalStatus: storedData.maritalStatus || "",
       contractType: storedData.contractType || "",
-      annualLeaveDays: storedData.annualLeaveDays || 0,
-      sickLeaveDays: storedData.sickLeaveDays || 0,
+      annualLeaveDays: storedData.AnnualLeaveDays || 0,
+      sickLeaveDays: storedData.SickLeaveDays || 0,
     };
   });
 

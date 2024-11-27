@@ -12,7 +12,7 @@ using api.Data;
 namespace api.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241113095346_Newdatabase")]
+    [Migration("20241127090148_Newdatabase")]
     partial class Newdatabase
     {
         /// <inheritdoc />
@@ -54,19 +54,19 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0659496f-a7dc-4308-b103-73063b7174a0",
+                            Id = "dcc71578-5059-4332-aaaf-42cfd7c576e1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "beecf8b9-2fb6-478f-87f3-dbb68e119fcb",
+                            Id = "37a45ad7-a225-4b16-b834-8627e1d2b10f",
                             Name = "Employee",
                             NormalizedName = "Employee"
                         },
                         new
                         {
-                            Id = "be9126a5-c59a-43bb-adc2-62ea42c420b1",
+                            Id = "5ea8c753-1d00-4b67-a3ae-361ffc416a27",
                             Name = "Executive",
                             NormalizedName = "Executive"
                         });
@@ -459,6 +459,35 @@ namespace api.Migrations
                     b.ToTable("Logins");
                 });
 
+            modelBuilder.Entity("api.Models.Position", b =>
+                {
+                    b.Property<int>("PositionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PositionID"));
+
+                    b.Property<int>("AnnualLeaveDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("JobLevel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SickLeaveDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("PositionID");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
+
+                    b.ToTable("Positions");
+                });
+
             modelBuilder.Entity("api.Models.ResetPasswordModel", b =>
                 {
                     b.Property<int>("Id")
@@ -593,6 +622,17 @@ namespace api.Migrations
                         .HasForeignKey("JobGradeId");
 
                     b.Navigation("JobGrade");
+                });
+
+            modelBuilder.Entity("api.Models.Position", b =>
+                {
+                    b.HasOne("api.Models.Employee", "Employee")
+                        .WithOne()
+                        .HasForeignKey("api.Models.Position", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("api.Models.AppUser", b =>
